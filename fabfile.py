@@ -3,7 +3,7 @@ import re
 
 from fabric.api import local, task
 
-from .setup import VERSION
+from setup import VERSION
 
 _version_re = re.compile(r'__version__\s+=\s+(.*)')
 
@@ -50,7 +50,9 @@ def publish():
     local("python setup.py bdist_egg")
     build = local("python setup.py sdist")
     if build.succeeded:
-        local("python setup.py sdist upload")
+        upload = local("python setup.py sdist upload")
+        if upload.succeeded:
+            clean()
 
 
 @task

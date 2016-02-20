@@ -36,6 +36,6 @@ setup(
     include_package_data=True,
     author='Bernard Ojengwa',
     install_requires=install_requires,
-    depedency_links=dependency_links,
+    dependency_links=dependency_links,
     author_email='bernardojengwa@gmail.com'
 )

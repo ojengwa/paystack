@@ -1,9 +1,6 @@
 paystack
 ===============================
 
-version number: 0.0.1
-author: Bernard Ojengwa
-
 Overview
 --------
 
@@ -21,7 +18,7 @@ Or clone the repo:
 
     $ git clone https://github.com/ojengwa/paystack.git
     $ python setup.py install
-    
+
 Contributing
 ------------
 
