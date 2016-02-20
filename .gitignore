@@ -1,7 +1,7 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
-*.py[cod]
 *$py.class
+*.py[cod]
 
 # C extensions
 *.so
@@ -9,19 +9,13 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
-build/
-develop-eggs/
 dist/
 downloads/
 eggs/
 .eggs/
-lib/
-lib64/
 parts/
-sdist/
 var/
 *.egg-info/
-.installed.cfg
 *.egg
 
 # PyInstaller
@@ -60,3 +54,38 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+# pycharm
+.idea/
+.idea
+
+# Packages
+*.egg
+*.egg-info
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+
+# Complexity
+output/*.html
+output/*/index.html
+
+# Sphinx
+docs/_build
+
+# Cookiecutter
+output/
