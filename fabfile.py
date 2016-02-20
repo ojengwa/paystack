@@ -1,11 +1,8 @@
 """Summary."""
-import re
 
 from fabric.api import local, task
 
-from setup import VERSION
-
-_version_re = re.compile(r'__version__\s+=\s+(.*)')
+from paystack.version import VERSION
 
 
 @task
@@ -47,12 +44,9 @@ def publish():
         msg (str, optional): Description
     """
     clean()
-    local("python setup.py bdist_egg")
     build = local("python setup.py sdist")
     if build.succeeded:
-        upload = local("python setup.py sdist upload")
-        if upload.succeeded:
-            clean()
+        local("python setup.py sdist upload")
 
 
 @task
@@ -64,8 +58,8 @@ def test():
 
 
 @task
-def tag(tag=VERSION):
+def tag(version=VERSION):
     """Deploy a version tag."""
-    build = local("git tag {0}".format(tag))
+    build = local("git tag {0}".format(version))
     if build.succeeded:
         local("git push --tags")
