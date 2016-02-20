@@ -20,3 +20,7 @@ class ValidationError(Error):
 
 class AuthorizationError(Error):
     pass
+
+
+class InvalidRequestError(Error):
+    pass
