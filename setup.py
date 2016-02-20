@@ -1,8 +1,7 @@
 from setuptools import setup, find_packages
 from codecs import open
 from os import path
-
-VERSION = '0.0.1'
+from paystack.version import VERSION
 
 here = path.abspath(path.dirname(__file__))
 
