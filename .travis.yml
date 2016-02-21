@@ -9,10 +9,10 @@ python:
 
 install:
   - pip install -r requirements.txt
-  - pip install --editable .
+  - pip install -r test-requirements.txt
 
 script:
-    nosetests  --with-coverage --cover-package=paystack
+    nosetests  --with-coverage --cover-package=paystack/
 
 after_success:
   coveralls

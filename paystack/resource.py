@@ -50,7 +50,7 @@ class BaseAPIResource(object):
 
         if not resource_path:
             raise error.ValidationError('You must provide the API endpoint for\
-                                         for the  resourcyou want to access.')
+                                         for the resource you want to access.')
         self.api_secret = util.utf8(api_secret)
         self.resource_path = resource_path
         self.client = RequestsClient(verify_ssl_certs=verify_ssl)
@@ -101,6 +101,7 @@ class TransactionResource(BaseAPIResource):
         url = self.api_host + self.resource_path + endpoint
         response = self.client.request(method, url, self.headers,
                                        post_data=payload)
+        print(response)
         return response
 
     def verify(self, ref=None):
