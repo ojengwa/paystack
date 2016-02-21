@@ -33,9 +33,9 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 from paystack.client import RequestsClient
-import error
-import util
-import version
+from paystack import error
+from paystack import util
+from paystack import version
 
 
 class BaseAPIResource(object):

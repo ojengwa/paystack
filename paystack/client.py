@@ -36,7 +36,7 @@ import os
 import textwrap
 import requests
 
-import error
+from paystack import error
 
 
 class HTTPClient(object):
