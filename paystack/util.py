@@ -34,9 +34,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 import sys
 
+try:
+    import unicode
+except Exception as e:
+    # Using Python < 3
+    pass
+
 
 def utf8(value):
-    if isinstance(value, unicode) and sys.version_info < (3, 0):
-        return value.encode('utf-8')
-    else:
-        return value
+
+    if sys.version_info < (3, 0):
+        if isinstance(value, unicode):
+            return value.encode('utf-8')
+
+    return value
