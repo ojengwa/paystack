@@ -35,11 +35,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 from client import RequestsClient
 import error
 import util
+import version
 
 
 class BaseAPIResource(object):
 
-    def __init__(self, api_secret, *args, **kwargs):
+    def __init__(self, api_secret, endpoint, verify_ssl=False):
         self.protocol = 'https'
         self.api_host = self.protocol + '//api.paystack.co/transaction/'
 
@@ -48,8 +49,27 @@ class BaseAPIResource(object):
                                         during object initialisation')
 
         self.api_secret = util.utf8(api_secret)
+        self.endpoint = endpoint
+        self.client = RequestsClient(verify_ssl_certs=verify_ssl)
+        self.headers = {}
+        self.headers.update({
+            "Authorization": "Bearer {0}".format(self.api_secret),
+            "user-agent": "PaystackSDK - {0}".format(version.VERSION)
+        })
 
-    def list(self, endpoint):
+    def all(self):
+        pass
+
+    def one(self, id):
+        pass
+
+    def post(self, data):
+        pass
+
+    def delete(self, id):
+        pass
+
+    def update(self, id, data):
         pass
 
 
