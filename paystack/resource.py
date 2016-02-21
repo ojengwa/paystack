@@ -40,9 +40,9 @@ import version
 
 class BaseAPIResource(object):
 
-    def __init__(self, api_secret=None, resource_path=None, verify_ssl=False):
+    def __init__(self, api_secret=None, resource_path=None, verify_ssl=True):
         self.protocol = 'https'
-        self.api_host = self.protocol + '//api.paystack.co/'
+        self.api_host = self.protocol + '://api.paystack.co/'
 
         if not api_secret:
             raise error.ValidationError('You must provide your API SECRET_KEY \
@@ -101,7 +101,6 @@ class TransactionResource(BaseAPIResource):
         url = self.api_host + self.resource_path + endpoint
         response = self.client.request(method, url, self.headers,
                                        post_data=payload)
-        print(response)
         return response
 
     def verify(self, ref=None):

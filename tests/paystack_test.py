@@ -2,6 +2,8 @@
 """TestCases for the PaystackSDK."""
 
 import unittest
+
+from paystack import util
 from paystack.resource import (TransactionResource,
                                )
 
@@ -47,6 +49,7 @@ class TransactionResourceTest(unittest.TestCase):
         self.test_email = 'bernard@disgui.se'
         self.test_amount = 5000
         self.plan = 'Basic'
+        self.client = TransactionResource(self.secret_key, self.random_ref)
 
     def tearDown(self):
         """
@@ -57,7 +60,43 @@ class TransactionResourceTest(unittest.TestCase):
         """
         pass
 
-    def test_init(self):
-        client = TransactionResource(self.secret_key, self.random_ref)
-        self.assertIsInstance(client, TransactionResource)
-        self.assertEqual(client.resource_path, 'transaction')
+    def test_instance_of(self):
+        self.assertIsInstance(self.client, TransactionResource)
+
+    def test_has_resource_path(self):
+        self.assertEqual(self.client.resource_path, 'transaction')
+
+    def test_has_response(self):
+        self.response = self.client.initialize(self.test_amount,
+                                               self.test_email,
+                                               self.plan)
+        print(self.response)
+        self.assertIsNotNone(self.response)
+
+
+class UtilTest(unittest.TestCase):
+    """]TestCase class for the PaystackSDK."""
+
+    def setUp(self):
+        """
+        Test set up method.
+
+        Returns:
+            None
+        """
+        self.value = util.utf8('138186')
+
+    def tearDown(self):
+        """
+        Test tear down method.
+
+        Returns:
+            None
+        """
+        pass
+
+    def test_is_string(self):
+        self.assertIsInstance(self.value, str)
+
+    def test_equal(self):
+        self.assertEqual(self.value, '138186')
