@@ -33,10 +33,24 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 from client import RequestsClient
+import error
+import util
 
 
 class BaseAPIResource(object):
-    pass
+
+    def __init__(self, api_secret, *args, **kwargs):
+        self.protocol = 'https'
+        self.api_host = self.protocol + '//api.paystack.co/transaction/'
+
+        if not api_secret:
+            raise error.ValidationError('You must provide your API SECRET_KEY \
+                                        during object initialisation')
+
+        self.api_secret = util.utf8(api_secret)
+
+    def list(self, endpoint):
+        pass
 
 
 class CustomerResource(BaseAPIResource):
