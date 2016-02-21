@@ -2,9 +2,6 @@ coverage==4.0.3
 coveralls==1.1
 docopt==0.6.2
 cov-core==1.15.0
-coverage==4.0.3
-coveralls==1.1
-docopt==0.6.2
 nose2==0.6.0
 nose2-cov==1.0a4
 six==1.10.0
