@@ -42,7 +42,7 @@ import error
 class HTTPClient(object):
     """Base API Request Client."""
 
-    def __init__(self, verify_ssl_certs=False):
+    def __init__(self, verify_ssl_certs=True):
         """
         Summary.
 
