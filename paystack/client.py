@@ -42,12 +42,12 @@ import error
 class HTTPClient(object):
     """Base API Request Client."""
 
-    def __init__(self, verify_ssl_certs=True):
+    def __init__(self, verify_ssl_certs=False):
         """
         Summary.
 
         Args:
-            verify_ssl_certs (bool, optional): Description
+            verify_ssl_certs (bool, optional): SSL is not yet supported.
         """
         self._verify_ssl_certs = verify_ssl_certs
 
