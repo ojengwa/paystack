@@ -100,8 +100,8 @@ class RequestsClient(HTTPClient):
         kwargs = {}
 
         if self._verify_ssl_certs:
-            kwargs['cert'] = os.path.join(
-                os.path.dirname(__file__), '../cert/paystack.pem')
+            kwargs['verify'] = os.path.join(
+                os.path.dirname(__file__), '../cert/paystack.crt')
         else:
             kwargs['verify'] = False
         # TODO: Workout SSL Certificate verification
