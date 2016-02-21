@@ -43,10 +43,15 @@ The package is compatible with Python 2.6+, Python 3.1+ and PyPy.  We need to te
 
 To run the included test:
 1. Clone the repo:
+
     $ git clone https://github.com/ojengwa/paystack.git
+
 2. Cd into project directory and install dependencies:
+
     $ cd paystack && pip install -r requirements.txt
+
 3. Run the includded test using fabric:
+
     $ fab test
 
 Contributing
