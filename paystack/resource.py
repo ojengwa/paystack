@@ -40,20 +40,24 @@ import version
 
 class BaseAPIResource(object):
 
-    def __init__(self, api_secret, endpoint, verify_ssl=False):
+    def __init__(self, api_secret=None, resource_path=None, verify_ssl=False):
         self.protocol = 'https'
-        self.api_host = self.protocol + '//api.paystack.co/transaction/'
+        self.api_host = self.protocol + '//api.paystack.co/'
 
         if not api_secret:
             raise error.ValidationError('You must provide your API SECRET_KEY \
                                         during object initialisation')
 
+        if not resource_path:
+            raise error.ValidationError('You must provide the API endpoint for\
+                                         for the  resourcyou want to access.')
         self.api_secret = util.utf8(api_secret)
-        self.endpoint = endpoint
+        self.resource_path = resource_path
         self.client = RequestsClient(verify_ssl_certs=verify_ssl)
         self.headers = {}
         self.headers.update({
             "Authorization": "Bearer {0}".format(self.api_secret),
+            "Content-Type": "application/json",
             "user-agent": "PaystackSDK - {0}".format(version.VERSION)
         })
 
@@ -78,7 +82,31 @@ class CustomerResource(BaseAPIResource):
 
 
 class TransactionResource(BaseAPIResource):
-    pass
+
+    def __init__(self, api_secret, reference,
+                 resource_path='transaction', *args, **kwargs):
+        super(TransactionResource, self)\
+            .__init__(api_secret, resource_path, *args, **kwargs)
+        self.reference = reference
+
+    def initialize(self, amount, email, plan=None):
+        endpoint = '/initialize'
+        method = 'POST'
+        payload = {
+            "reference": self.reference,
+            "amount": amount,
+            "email": email,
+            "plan": plan
+        }
+        url = self.api_host + self.resource_path + endpoint
+        response = self.client.request(method, url, self.headers,
+                                       post_data=payload)
+        print(response)
+        return response
+
+    def verify(self, ref=None):
+        endpoint = '/verify/'
+        method = 'GET'
 
 
 class PlanResource(BaseAPIResource):
