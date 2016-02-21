@@ -33,28 +33,75 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
 import os
+import textwrap
 import requests
+
+import error
 
 
 class HTTPClient(object):
+    """Base API Request Client."""
 
     def __init__(self, verify_ssl_certs=True):
+        """
+        Summary.
+
+        Args:
+            verify_ssl_certs (bool, optional): Description
+        """
         self._verify_ssl_certs = verify_ssl_certs
 
     def request(self, method, url, headers, post_data=None):
+        """
+        Summary.
+
+        Args:
+            method (TYPE): Description
+            url (TYPE): Description
+            headers (TYPE): Description
+            post_data (TYPE, optional): Description
+
+        Raises:
+            NotImplementedError: Description
+
+        Returns:
+            TYPE: Description
+        """
         raise NotImplementedError(
             'HTTPClient subclasses must implement `request`')
 
 
 class RequestsClient(HTTPClient):
+    """
+    Summary.
+
+    Attributes:
+        name (str): Description
+    """
+
     name = 'requests'
 
     def request(self, method, url, headers, post_data=None):
+        """
+        Summary.
+
+        Args:
+            method (TYPE): Description
+            url (TYPE): Description
+            headers (TYPE): Description
+            post_data (TYPE, optional): Description
+
+        Raises:
+            TypeError: Description
+
+        Returns:
+            TYPE: Description
+        """
         kwargs = {}
 
         if self._verify_ssl_certs:
             kwargs['verify'] = os.path.join(
-                os.path.dirname(__file__), 'data/ca-certificates.crt')
+                os.path.dirname(__file__), 'cert/paystack.crt')
         else:
             kwargs['verify'] = False
 
@@ -87,67 +134,32 @@ class RequestsClient(HTTPClient):
         return content, status_code, result.headers
 
     def _handle_request_error(self, e):
+        """
+        Summary.
+
+        Args:
+            e (TYPE): Description
+
+        Raises:
+            error.APIConnectionError: Description
+
+        Returns:
+            TYPE: Description
+        """
         if isinstance(e, requests.exceptions.RequestException):
-            msg = ("Unexpected error communicating with Stripe.  "
+            msg = ("Unexpected error communicating with Paystack.  "
                    "If this problem persists, let us know at "
-                   "support@stripe.com.")
+                   "bernardojengwa@gmail.com.")
             err = "%s: %s" % (type(e).__name__, str(e))
         else:
-            msg = ("Unexpected error communicating with Stripe. "
+            msg = ("Unexpected error communicating with Paystack. "
                    "It looks like there's probably a configuration "
                    "issue locally.  If this problem persists, let us "
-                   "know at support@stripe.com.")
+                   "know at bernardojengwa@gmail.com.")
             err = "A %s was raised" % (type(e).__name__,)
             if str(e):
                 err += " with error message %s" % (str(e),)
             else:
                 err += " with no error message"
         msg = textwrap.fill(msg) + "\n\n(Network error: %s)" % (err,)
-        raise error.APIConnectionError(msg)
-
-
-class UrlFetchClient(HTTPClient):
-    name = 'urlfetch'
-
-    def __init__(self, verify_ssl_certs=True, deadline=55):
-        self._verify_ssl_certs = verify_ssl_certs
-        # GAE requests time out after 60 seconds, so make sure to default
-        # to 55 seconds to allow for a slow Stripe
-        self._deadline = deadline
-
-    def request(self, method, url, headers, post_data=None):
-        try:
-            result = urlfetch.fetch(
-                url=url,
-                method=method,
-                headers=headers,
-                # Google App Engine doesn't let us specify our own cert bundle.
-                # However, that's ok because the CA bundle they use recognizes
-                # api.stripe.com.
-                validate_certificate=self._verify_ssl_certs,
-                deadline=self._deadline,
-                payload=post_data
-            )
-        except urlfetch.Error as e:
-            self._handle_request_error(e, url)
-
-        return result.content, result.status_code, result.headers
-
-    def _handle_request_error(self, e, url):
-        if isinstance(e, urlfetch.InvalidURLError):
-            msg = ("The Stripe library attempted to fetch an "
-                   "invalid URL (%r). This is likely due to a bug "
-                   "in the Stripe Python bindings. Please let us know "
-                   "at support@stripe.com." % (url,))
-        elif isinstance(e, urlfetch.DownloadError):
-            msg = "There was a problem retrieving data from Stripe."
-        elif isinstance(e, urlfetch.ResponseTooLargeError):
-            msg = ("There was a problem receiving all of your data from "
-                   "Stripe.  This is likely due to a bug in Stripe. "
-                   "Please let us know at support@stripe.com.")
-        else:
-            msg = ("Unexpected error communicating with Stripe. If this "
-                   "problem persists, let us know at support@stripe.com.")
-
-        msg = textwrap.fill(msg) + "\n\n(Network error: " + str(e) + ")"
         raise error.APIConnectionError(msg)
