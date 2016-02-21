@@ -47,11 +47,15 @@ To run the included test:
 
     $ git clone https://github.com/ojengwa/paystack.git
 
-2. Cd into project directory and install dependencies:
+2. Cd into project directory:
 
-    $ cd paystack && pip install -r requirements.txt
+    $ cd paystack
 
-3. Run the includded test using fabric:
+3. Install dependencies:
+
+    $ pip install -r requirements.txt
+
+4. Run the includded test using fabric:
 
     $ fab test
 
