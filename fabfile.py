@@ -13,7 +13,7 @@ def install(version=""):
         version (str, optional): Description
     """
     local("pip install -r requirements.txt")
-    local("python setup.py install")
+    local("pip install -r test-requirements.txt")
 
 
 @task
