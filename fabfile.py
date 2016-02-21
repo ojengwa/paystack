@@ -53,7 +53,7 @@ def publish():
 def test():
     """Test project."""
     local(
-        "coverage erase && nosetests  --with-coverage --cover-package=paystack"
+        "coverage erase && nosetests  --with-coverage --cover-package=paystack/"
     )
 
 
