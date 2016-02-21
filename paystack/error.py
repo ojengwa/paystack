@@ -32,7 +32,7 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
-from requests import RequestException
+from requests import RequestException, ConnectionError
 
 
 class Error(RequestException):
@@ -43,7 +43,7 @@ class APIError(Error):
     pass
 
 
-class APIConnectionError(Error):
+class APIConnectionError(Error, ConnectionError):
     pass
 
 
