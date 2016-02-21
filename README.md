@@ -36,6 +36,19 @@ Documentation
 
 Please see https://developers.paystack.co/docs for the most up-to-date documentation for the Paystack API.
 
+Testing
+-------------
+
+The package is compatible with Python 2.6+, Python 3.1+ and PyPy.  We need to test against all of these environments to ensure compatibility.  Travis CI will automatically run our tests on push.  For local testing, we use [nose](http://nose2.readthedocs.org/en/latest/) to handle testing across environments.
+
+To run the included test:
+1. Clone the repo:
+    $ git clone https://github.com/ojengwa/paystack.git
+2. Cd into project directory and install dependencies:
+    $ cd paystack && pip install -r requirements.txt
+3. Run the includded test using fabric:
+    $ fab test
+
 Contributing
 ------------
 
