@@ -45,6 +45,6 @@ def utf8(value):
 
     if sys.version_info < (3, 0):
         if isinstance(value, unicode):
-            return value.encode('utf-8')
+            return value.encode('utf-8')  # noqa
 
     return value
