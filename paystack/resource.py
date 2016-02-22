@@ -54,12 +54,15 @@ class BaseAPIResource(object):
         self.api_secret = util.utf8(api_secret)
         self.resource_path = resource_path
         self.client = RequestsClient(verify_ssl_certs=verify_ssl)
-        self.headers = {}
-        self.headers.update({
+        self.request_headers = {
             "Authorization": "Bearer {0}".format(self.api_secret),
             "Content-Type": "application/json",
             "user-agent": "PaystackSDK - {0}".format(version.VERSION)
-        })
+        }
+
+        self._result = {}
+        self._status_code = None
+        self._response_headers = {}
 
     def all(self):
         pass
@@ -76,6 +79,18 @@ class BaseAPIResource(object):
     def update(self, id, data):
         pass
 
+    @property
+    def status(self):
+        return self._status_code
+
+    @property
+    def response(self):
+        return self._result
+
+    @property
+    def headers(self):
+        self._response_headers
+
 
 class CustomerResource(BaseAPIResource):
     pass
@@ -88,6 +103,8 @@ class TransactionResource(BaseAPIResource):
         super(TransactionResource, self)\
             .__init__(api_secret, resource_path, *args, **kwargs)
         self.reference = reference
+        self.authorization_url = None
+        self.access_code = None
 
     def initialize(self, amount, email, plan=None):
         endpoint = '/initialize'
@@ -99,14 +116,59 @@ class TransactionResource(BaseAPIResource):
             "plan": plan
         }
         url = self.api_host + self.resource_path + endpoint
-        response = self.client.request(method, url, self.headers,
-                                       post_data=payload)
-        print(response)
+        response, status, headers = self.client.request(method, url,
+                                                        self.request_headers,
+                                                        post_data=payload)
+        self._response_headers = headers
+        self._status_code = status
+        self._result = response
+        if not response.get('status', False):
+            raise error.APIError(response.get('message'))
+
+        self.authorization_url = response.get('authorization_url', None)
+        self.access_code = response.get('access_code', None)
+
+        return response
+
+    def verify(self):
+        endpoint = '/verify/'
+        method = 'GET'
+        url = self.api_host + self.resource_path + endpoint + self.reference
+        response, status, headers = self.client.request(method, url,
+                                                        self.request_headers
+                                                        )
+        self._response_headers = headers
+        self._status_code = status
+        self._result = response
+        if not response.get('status', False):
+            raise error.APIError(response.get('message'))
+
+        self.authorization_url = response.get('authorization_url', None)
+        self.access_code = response.get('access_code', None)
+
         return response
 
     def verify(self, ref=None):
         endpoint = '/verify/'
         method = 'GET'
+        if not ref and not self.reference:
+            raise error.ValidationError("You must define a reference key for\
+                                         this transaction.")
+        self.reference = (lambda ref: ref if ref else self.reference)(ref)
+        url = self.api_host + self.resource_path + endpoint + self.reference
+        response, status, headers = self.client.request(method, url,
+                                                        self.request_headers
+                                                        )
+        self._response_headers = headers
+        self._status_code = status
+        self._result = response
+        if not response.get('status', False):
+            raise error.APIError(response.get('message'))
+
+        self.authorization_url = response.get('authorization_url', None)
+        self.access_code = response.get('access_code', None)
+
+        return response
 
 
 class PlanResource(BaseAPIResource):
