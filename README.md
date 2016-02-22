@@ -64,9 +64,34 @@ Contributing
 
 TBD
 
-Add Event hooks
+1. Add Event hooks
+2. Create Consumer Resource
+3. Create Plan Resource
+
 
 Example
 -------
+
+```
+
+from paystack.resource import TransactionResource
+
+
+def main():
+    secret_key = 'sk_test_ae4a423c668feac411cbc3c6719a52092176ca12'
+    random_ref = 'asdsdswe224weuksfuf'
+    test_email = 'bernard@disgui.se'
+    test_amount = 5000
+    plan = 'Basic'
+    client = TransactionResource(secret_key, random_ref)
+    response = client.initialize(test_amount,
+                                 test_email,
+                                 plan)
+    print(response)
+    verify = client.verify()
+    print(verify)
+    print(client.charge())
+
+```
 
 TBD
