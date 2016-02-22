@@ -59,10 +59,8 @@ To run the included test:
 
     ```$ fab test```
 
-Contributing
+TODO
 ------------
-
-TBD
 
 1. Add Event hooks
 2. Create Consumer Resource
@@ -93,5 +91,3 @@ def main():
     print(client.charge())
 
 ```
-
-TBD
