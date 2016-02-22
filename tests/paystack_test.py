@@ -6,6 +6,8 @@ import unittest
 from paystack import util
 from paystack.resource import (TransactionResource,
                                )
+from paystack.client import (HTTPClient,
+                             RequestsClient)
 
 
 class PaystackSDKTest(unittest.TestCase):
@@ -35,7 +37,7 @@ class PaystackSDKTest(unittest.TestCase):
 
 
 class TransactionResourceTest(unittest.TestCase):
-    """]TestCase class for the PaystackSDK."""
+    """TestCase class for the PaystackSDK."""
 
     def setUp(self):
         """
@@ -76,7 +78,7 @@ class TransactionResourceTest(unittest.TestCase):
 
 
 class UtilTest(unittest.TestCase):
-    """]TestCase class for the PaystackSDK."""
+    """TestCase class for the util module."""
 
     def setUp(self):
         """
@@ -101,3 +103,79 @@ class UtilTest(unittest.TestCase):
 
     def test_equal(self):
         self.assertEqual(self.value, '138186')
+
+
+class HTTPClientTest(unittest.TestCase):
+    """TestCase class for the HTTPClient class."""
+
+    def setUp(self):
+        """
+        Test set up method.
+
+        Returns:
+            None
+        """
+        self.client = HTTPClient()
+        self.method = 'GET'
+        self.url = 'http://github.com/ojengwa'
+        self.headers = {}
+
+    def tearDown(self):
+        """
+        Test tear down method.
+
+        Returns:
+            None
+        """
+        pass
+
+    def test_isinstance(self):
+        self.assertIsInstance(self.client, HTTPClient)
+
+    def test_verify_ssl(self):
+        self.assertEqual(self.client._verify_ssl_certs, True)
+
+    @unittest.skip
+    def test_not_implemented(self):
+        self.assertRaises(self.client.request(self.method,
+                                              self.url,
+                                              self.headers
+                                              ), NotImplementedError)
+
+
+class RequestsClientTest(unittest.TestCase):
+    """TestCase class for the HTTPClient class."""
+
+    def setUp(self):
+        """
+        Test set up method.
+
+        Returns:
+            None
+        """
+        self.client = RequestsClient()
+        self.method = 'GET'
+        self.url = 'http://github.com/ojengwa'
+        self.headers = {}
+
+    def tearDown(self):
+        """
+        Test tear down method.
+
+        Returns:
+            None
+        """
+        pass
+
+    def test_isinstance(self):
+        self.assertIsInstance(self.client, RequestsClient)
+
+    def test_verify_ssl(self):
+        self.assertEqual(self.client._verify_ssl_certs, True)
+
+    @unittest.skip
+    def test_not_implemented(self):
+        self.assertRaises(self.client.request(self.method,
+                                              self.url,
+                                              self.headers
+                                              ), NotImplementedError)
