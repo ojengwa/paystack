@@ -64,6 +64,8 @@ Contributing
 
 TBD
 
+Add Event hooks
+
 Example
 -------
 
