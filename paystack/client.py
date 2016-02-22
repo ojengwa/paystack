@@ -38,6 +38,11 @@ import requests
 
 from paystack import error
 
+try:
+    import json
+except Exception as e:
+    import simplejson as json
+
 
 class HTTPClient(object):
     """Base API Request Client."""
@@ -111,7 +116,7 @@ class RequestsClient(HTTPClient):
                 result = requests.request(method,
                                           url,
                                           headers=headers,
-                                          data=post_data,
+                                          data=json.dumps(post_data),
                                           timeout=80,
                                           **kwargs)
             except TypeError as e:
@@ -126,8 +131,9 @@ class RequestsClient(HTTPClient):
             # This causes the content to actually be read, which could cause
             # e.g. a socket timeout. TODO: The other fetch methods probably
             # are susceptible to the same and should be updated.
-            content = result.content
+            content = json.loads(result.content)
             status_code = result.status_code
+
         except Exception as e:
             # Would catch just requests.exceptions.RequestException, but can
             # also raise ValueError, RuntimeError, etc.
@@ -149,13 +155,13 @@ class RequestsClient(HTTPClient):
         """
         if isinstance(e, requests.exceptions.RequestException):
             msg = ("Unexpected error communicating with Paystack.  "
-                   "If this problem persists, let us know at "
+                   "If this problem persists, let me know at "
                    "bernardojengwa@gmail.com.")
             err = "%s: %s" % (type(e).__name__, str(e))
         else:
             msg = ("Unexpected error communicating with Paystack. "
                    "It looks like there's probably a configuration "
-                   "issue locally.  If this problem persists, let us "
+                   "issue locally.  If this problem persists, let me "
                    "know at bernardojengwa@gmail.com.")
             err = "A %s was raised" % (type(e).__name__,)
             if str(e):
