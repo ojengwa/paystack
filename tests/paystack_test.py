@@ -45,7 +45,7 @@ class TransactionResourceTest(unittest.TestCase):
             None
         """
         self.secret_key = 'sk_test_ae4a423c668feac411cbc3c6719a52092176ca12'
-        self.random_ref = 'adkjwnhbhkbhbuksfuf'
+        self.random_ref = 'adkjwnhbhkbhb34242uksfuf'
         self.test_email = 'bernard@disgui.se'
         self.test_amount = 5000
         self.plan = 'Basic'
@@ -70,7 +70,7 @@ class TransactionResourceTest(unittest.TestCase):
         self.response = self.client.initialize(self.test_amount,
                                                self.test_email,
                                                self.plan)
-        print(self.response)
+        print(dir(self.response))
         self.assertIsNotNone(self.response)
 
 
