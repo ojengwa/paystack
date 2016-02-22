@@ -67,7 +67,6 @@ TODO
 3. Create Plan Resource
 4. Improve test coverage :(
 
-
 Example
 -------
 

@@ -136,11 +136,11 @@ class HTTPClientTest(unittest.TestCase):
         self.assertEqual(self.client._verify_ssl_certs, True)
 
     @unittest.skip
-    def test_not_implemented(self):
-        self.assertRaises(self.client.request(self.method,
-                                              self.url,
-                                              self.headers
-                                              ), NotImplementedError)
+    def test_request_snot_implemented(self):
+        self.assertRaises(NotImplementedError, self.client.request(self.method,
+                                                                   self.url,
+                                                                   self.headers
+                                                                   ))
 
 
 class RequestsClientTest(unittest.TestCase):
