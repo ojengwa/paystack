@@ -65,19 +65,24 @@ class BaseAPIResource(object):
         self._response_headers = {}
 
     def all(self):
-        pass
+        raise NotImplementedError(
+            'BaseAPIResource subclasse must implement this methon.')
 
     def one(self, id):
-        pass
+        raise NotImplementedError(
+            'BaseAPIResource subclasse must implement this methon.')
 
     def post(self, data):
-        pass
+        raise NotImplementedError(
+            'BaseAPIResource subclasse must implement this methon.')
 
     def delete(self, id):
-        pass
+        raise NotImplementedError(
+            'BaseAPIResource subclasse must implement this methon.')
 
     def update(self, id, data):
-        pass
+        raise NotImplementedError(
+            'BaseAPIResource subclasse must implement this methon.')
 
     @property
     def status(self):
