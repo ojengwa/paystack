@@ -5,11 +5,6 @@ version number: 1.0.0
 
 author: Bernard Ojengwa
 
-Overview
---------
-
-A Paystack API wrapper in Python
-
 Installation / Usage
 --------------------
 
@@ -47,19 +42,19 @@ To run the included test:
 
 1. Clone the repo:
 
-    ``$ git clone https://github.com/ojengwa/paystack.git``
+    $ git clone https://github.com/ojengwa/paystack.git
 
 2. Enter project directory:
 
-    ``$ cd paystack``
+    $ cd paystack
 
 3. Install dependencies using fabric:
 
-    ``$ fab install``
+    $ fab install
 
 4. Run the includded test using fabric:
 
-    ``$ fab test``
+    $ fab test
 
 TODO
 ------------
@@ -67,7 +62,6 @@ TODO
 1. Add Event hooks
 2. Create Consumer Resource
 3. Create Plan Resource
-
 
 Example
 -------
