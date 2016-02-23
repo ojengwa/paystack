@@ -22,6 +22,8 @@ def clean():
     local("find . -name '*.pyc' -print0|xargs -0 rm", capture=False)
     # Remove the dist folder
     local("rm -rf ./dist && rm -rf paystack.egg-info")
+    local("rm -rf **__pycache__* && rm -rf coverage*")
+    local("rm -rf ./temp && rm -rf ./build")
 
 
 @task
@@ -37,7 +39,7 @@ def push(msg):
 
 
 @task
-def publish():
+def publish(msg="checkpoint: publish package"):
     """Deploy the app to PYPI.
 
     Args:
@@ -45,6 +47,7 @@ def publish():
     """
     clean()
     test = check()
+    push(msg)
     if test.succeeded:
         sdist = local("python setup.py sdist")
         if sdist.succeeded:
