@@ -38,51 +38,51 @@ from paystack import util
 from paystack import version
 
 
-class BaseAPIResource(object):
+class BaseAPIResource(object):  # pragma no cover
 
     def __init__(self, api_secret=None, resource_path=None, verify_ssl=True):
         self.protocol = 'https'
         self.api_host = self.protocol + '://api.paystack.co/'
 
-        if not api_secret:
-            raise error.ValidationError('You must provide your API SECRET_KEY \
-                                        during object initialisation')
+        if not api_secret:  # pragma: no cover
+            raise error.ValidationError("You must provide your API SECRET_KEY "
+                                        "during object initialisation")
 
-        if not resource_path:
-            raise error.ValidationError('You must provide the API endpoint for\
-                                         for the resource you want to access.')
+        if not resource_path:  # pragma: no cover
+            raise error.ValidationError("You must provide the API endpoint "
+                                        "for the resource you want to access.")
+
         self.api_secret = util.utf8(api_secret)
-        self.resource_path = resource_path
+        self.resource_path = self._class_name(resource_path)
         self.client = RequestsClient(verify_ssl_certs=verify_ssl)
         self.request_headers = {
             "Authorization": "Bearer {0}".format(self.api_secret),
             "Content-Type": "application/json",
             "user-agent": "PaystackSDK - {0}".format(version.VERSION)
         }
-
         self._result = {}
         self._status_code = None
         self._response_headers = {}
 
-    def all(self):
+    def all(self):  # pragma: no cover
         raise NotImplementedError(
-            'BaseAPIResource subclasse must implement this methon.')
+            'BaseAPIResource subclass must implement this method.')
 
-    def one(self, id):
+    def one(self, id):  # pragma: no cover
         raise NotImplementedError(
-            'BaseAPIResource subclasse must implement this methon.')
+            'BaseAPIResource subclass must implement this method.')
 
-    def post(self, data):
+    def post(self, data):  # pragma: no cover
         raise NotImplementedError(
-            'BaseAPIResource subclasse must implement this methon.')
+            'BaseAPIResource subclass must implement this method.')
 
-    def delete(self, id):
+    def delete(self, id):  # pragma: no cover
         raise NotImplementedError(
-            'BaseAPIResource subclasse must implement this methon.')
+            'BaseAPIResource subclass must implement this method.')
 
-    def update(self, id, data):
+    def update(self, id, data):  # pragma: no cover
         raise NotImplementedError(
-            'BaseAPIResource subclasse must implement this methon.')
+            'BaseAPIResource subclass must implement this method.')
 
     @property
     def status(self):
@@ -96,8 +96,17 @@ class BaseAPIResource(object):
     def headers(self):
         self._response_headers
 
+    @classmethod
+    def _class_name(cls, resource_path):
+        if cls == BaseAPIResource:
+            raise error.APIError(
+                'You cannot instantiate the API Base class directory.'
+                'This is an abstract class.  You should perform '
+                'actions on its subclasses (e.g. Charge, Customer).')
+        return util.utf8(resource_path)
 
-class CustomerResource(BaseAPIResource):
+
+class CustomerResource(BaseAPIResource):  # pragma: no cover
     pass
 
 
@@ -107,21 +116,22 @@ class TransactionResource(BaseAPIResource):
                  resource_path='transaction', *args, **kwargs):
         super(TransactionResource, self)\
             .__init__(api_secret, resource_path, *args, **kwargs)
-        self.reference = reference
-        self.authorization_url = None
-        self.access_code = None
-        self.email = None
-        self.amount = None
-        self.authorization_code = None
+        self.reference = reference  # pragma no cover
+        self.authorization_url = None  # pragma no cover
+        self.access_code = None  # pragma no cover
+        self.email = None  # pragma no cover
+        self.amount = None  # pragma no cover
+        self.authorization_code = None  # pragma no cover
 
-    def initialize(self, amount, email, ref=None, plan=None):
+    def initialize(self, amount, email, ref=None,
+                   plan=None):  # pragma no cover
         endpoint = '/initialize'
         method = 'POST'
         if not ref and not self.reference:
-            raise error.ValidationError("A unique object reference was not \
-                                        provided during instantiation. You\
-                                         must provide a reference for this\
-                                         transaction.")
+            raise error.ValidationError('A unique object reference was not '
+                                        'provided during instantiation. You'
+                                        ' must provide a reference for this'
+                                        ' transaction.')
         self.reference = (lambda ref: ref if ref else self.reference)(ref)
         payload = {
             "reference": self.reference,
@@ -150,14 +160,14 @@ class TransactionResource(BaseAPIResource):
 
         return response
 
-    def verify(self, ref=None):
+    def verify(self, ref=None):  # pragma no cover
         method = 'GET'
 
         if not ref and not self.reference:
-            raise error.ValidationError("A unique object reference was not \
-                                        provided during instantiation. You\
-                                         must provide a reference for this\
-                                         transaction.")
+            raise error.ValidationError('A unique object reference was not '
+                                        'provided during instantiation. You'
+                                        ' must provide a reference for this'
+                                        ' transaction.')
 
         self.reference = (lambda ref: ref if ref else self.reference)(ref)
 
@@ -179,23 +189,23 @@ class TransactionResource(BaseAPIResource):
         return response
 
     def charge(self, authorization_code=None, amount=None,
-               email=None, reference=None):
+               email=None, reference=None):  # pragma no cover
 
         endpoint = '/charge_authorization'
         method = 'POST'
 
-        if not authorization_code and not self.authorization_code:
-            raise error.ValidationError("This transaction object does not\
-                                         have an authorization code.You must\
-                                          provide an authorization code for\
-                                           this transaction.")
+        if not authorization_code and not self.access_code:
+            raise error.ValidationError('This transaction object does not'
+                                        ' have an authorization code.You must'
+                                        ' provide an authorization code for'
+                                        ' this transaction.')
         if not amount and not self.amount:
-            raise error.ValidationError("There is no amount specified for this \
-                                        transaction. You must provide the \
-                                        transaction amount in Kobo.")
+            raise error.ValidationError('There is no amount specified for this'
+                                        ' transaction. You must provide the '
+                                        ' transaction amount in Kobo.')
         if not email and not self.email:
-            raise error.ValidationError("The customer's email address wss not \
-                                        specified.")
+            raise error.ValidationError('The customer\'s email address wss not'
+                                        ' specified.')
 
         authorization_code = (
             lambda ref: authorization_code if authorization_code else self
@@ -231,5 +241,5 @@ class TransactionResource(BaseAPIResource):
         return response
 
 
-class PlanResource(BaseAPIResource):
+class PlanResource(BaseAPIResource):  # pragma: no cover
     pass
