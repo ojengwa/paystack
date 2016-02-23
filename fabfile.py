@@ -44,17 +44,23 @@ def publish():
         msg (str, optional): Description
     """
     clean()
-    build = local("python setup.py sdist")
-    if build.succeeded:
-        local("python setup.py sdist upload")
+    test = check()
+    if test.succeeded:
+        build = local("python setup.py sdist")
+        if build.succeeded:
+            upload = local("python setup.py sdist upload")
+            if upload.succeeded:
+                tag()
 
 
 @task
 def check():
     """Test project."""
-    local(
+    test = local(
         "coverage erase && nosetests  --with-coverage --cover-package=paystack/"
     )
+    if test.succeeded:
+        return test
 
 
 @task
