@@ -19,7 +19,7 @@ setup(
     download_url='https://github.com/ojengwa/paystack/tarball/' + VERSION,
     license='BSD',
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 5 - Stable',
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Libraries',
         'Programming Language :: Python :: 2.6',
