@@ -107,10 +107,10 @@ class RequestsClient(HTTPClient):  # pragma: no cover
 
         if self._verify_ssl_certs:
             key = os.path.join(
-                os.path.dirname(__file__), 'cert/paystack.key')
+                os.path.dirname(__file__), 'data/paystack.key')
             cert = os.path.join(
-                os.path.dirname(__file__), 'cert/paystack.crt')
-            self.kwargs['cert'] = (cert, key)
+                os.path.dirname(__file__), 'data/paystack.crt')
+            # self.kwargs['cert'] = (cert, key)
         else:
             self.kwargs['verify'] = False
 
