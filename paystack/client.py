@@ -72,6 +72,7 @@ class HTTPClient(object):
         Returns:
             TYPE: Description
         """
+
         raise NotImplementedError(
             'HTTPClient subclasses must implement `request`')  # pragma: no cover
 
@@ -133,7 +134,9 @@ class RequestsClient(HTTPClient):  # pragma: no cover
             # This causes the content to actually be read, which could cause
             # e.g. a socket timeout. TODO: The other fetch methods probably
             # are susceptible to the same and should be updated.
-            self._content = (lambda content: json.loads(content) if content else None)(result.content)
+            self._content = (lambda content: json
+                             .loads(content) if content else None)\
+                (result.content)
             self._status_code = result.status_code
 
         except Exception as e:
