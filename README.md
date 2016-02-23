@@ -65,7 +65,6 @@ TODO
 1. Add Event hooks
 2. Create Consumer Resource
 3. Create Plan Resource
-4. Improve test coverage :(
 
 Example
 -------
