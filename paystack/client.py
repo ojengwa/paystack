@@ -40,7 +40,7 @@ from paystack import error
 
 try:
     import json
-except Exception as e:
+except Exception as e:  # pragma: no cover
     import simplejson as json
 
 
@@ -73,10 +73,10 @@ class HTTPClient(object):
             TYPE: Description
         """
         raise NotImplementedError(
-            'HTTPClient subclasses must implement `request`')
+            'HTTPClient subclasses must implement `request`')  # pragma: no cover
 
 
-class RequestsClient(HTTPClient):
+class RequestsClient(HTTPClient):  # pragma: no cover
     """
     Summary.
 
@@ -102,13 +102,16 @@ class RequestsClient(HTTPClient):
         Returns:
             TYPE: Description
         """
-        kwargs = {}
+        self.kwargs = {}
 
         if self._verify_ssl_certs:
-            kwargs['verify'] = os.path.join(
+            key = os.path.join(
+                os.path.dirname(__file__), '../cert/paystack.key')
+            cert = os.path.join(
                 os.path.dirname(__file__), '../cert/paystack.crt')
+            self.kwargs['cert'] = (cert, key)
         else:
-            kwargs['verify'] = False
+            self.kwargs['verify'] = False
 
         try:
             try:
@@ -117,8 +120,8 @@ class RequestsClient(HTTPClient):
                                           headers=headers,
                                           data=json.dumps(post_data),
                                           timeout=80,
-                                          **kwargs)
-            except TypeError as e:
+                                          **self.kwargs)
+            except TypeError as e:  # pragma: no cover
                 raise TypeError(
                     'Warning: It looks like your installed version of the '
                     '"requests" library is not compatible with Paystack\'s '
@@ -130,14 +133,14 @@ class RequestsClient(HTTPClient):
             # This causes the content to actually be read, which could cause
             # e.g. a socket timeout. TODO: The other fetch methods probably
             # are susceptible to the same and should be updated.
-            content = json.loads(result.content)
-            status_code = result.status_code
+            self._content = (lambda content: json.loads(content) if content else None)(result.content)
+            self._status_code = result.status_code
 
         except Exception as e:
             # Would catch just requests.exceptions.RequestException, but can
             # also raise ValueError, RuntimeError, etc.
             self._handle_request_error(e)
-        return content, status_code, result.headers
+        return self._content, self._status_code, result.headers
 
     def _handle_request_error(self, e):
         """
@@ -157,7 +160,7 @@ class RequestsClient(HTTPClient):
                    "If this problem persists, let me know at "
                    "bernardojengwa@gmail.com.")
             err = "%s: %s" % (type(e).__name__, str(e))
-        else:
+        else:  # pragma: no cover
             msg = ("Unexpected error communicating with Paystack. "
                    "It looks like there's probably a configuration "
                    "issue locally.  If this problem persists, let me "
