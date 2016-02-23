@@ -6,7 +6,7 @@ paystack
 Overview
 --------
 
-Paystack API bindings in Python
+Paystack API bindings in Python.
 
 Installation / Usage
 --------------------
