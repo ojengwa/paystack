@@ -1,1 +1,3 @@
-include README.rst
+include README.rst requirements.txt LICENSE.md
+
+recursive-include paystack/data *

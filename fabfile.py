@@ -45,10 +45,10 @@ def publish(msg="checkpoint: publish package"):
     Args:
         msg (str, optional): Description
     """
-    clean()
     test = check()
-    push(msg)
     if test.succeeded:
+        clean()
+        push(msg)
         sdist = local("python setup.py sdist")
         if sdist.succeeded:
             build = local(
