@@ -73,12 +73,17 @@ Example
 
 from paystack.resource import TransactionResource
 
+import random
+import string
 
 def main():
-    secret_key = 'sk_test_ae4a423c668feac411cbc3c6719a52092176ca12'
-    random_ref = 'asdsdswe224weuksfuf'
-    test_email = 'bernard@disgui.se'
-    test_amount = 5000
+    rand = ''.join(
+        [random.choice(
+            string.ascii_letters + string.digits) for n in range(16)])
+    secret_key = 'YOUR_SECRET_KEY'
+    random_ref = rand
+    test_email = 'TEST_EMAIL'
+    test_amount = 'TEST_AMOUNT'
     plan = 'Basic'
     client = TransactionResource(secret_key, random_ref)
     response = client.initialize(test_amount,
