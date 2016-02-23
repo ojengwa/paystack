@@ -50,7 +50,7 @@ def publish():
 
 
 @task
-def test():
+def check():
     """Test project."""
     local(
         "coverage erase && nosetests  --with-coverage --cover-package=paystack/"
