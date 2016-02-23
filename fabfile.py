@@ -46,19 +46,22 @@ def publish():
     clean()
     test = check()
     if test.succeeded:
-        build = local("python setup.py sdist")
-        if build.succeeded:
-            upload = local("python setup.py sdist upload")
-            if upload.succeeded:
-                tag()
+        sdist = local("python setup.py sdist")
+        if sdist.succeeded:
+            build = local(
+                'python setup.py build && python setup.py bdist_egg')
+            if build.succeeded:
+                upload = local("twine upload dist/*")
+                if upload.succeeded:
+                    tag()
 
 
 @task
 def check():
     """Test project."""
-    test = local(
-        "coverage erase && nosetests  --with-coverage --cover-package=paystack/"
-    )
+    test = local('coverage erase & & nosetests - -with-coverage'
+                 ' - -cover - package=paystack /'
+                 )
     if test.succeeded:
         return test
 
