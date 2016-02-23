@@ -46,7 +46,7 @@ class TransactionResourceTest(unittest.TestCase):
         Returns:
             None
         """
-        self.secret_key = 'sk_test_ae4a423c668feac411cbc3c6719a52092176ca12'
+        self.secret_key = 'sk_test_16c58271c29a007970de0353d8a47868df727cd0'
         self.random_ref = 'adkjwnhbhkbhb34242uksfuf'
         self.test_email = 'bernard@disgui.se'
         self.test_amount = 5000
@@ -68,12 +68,14 @@ class TransactionResourceTest(unittest.TestCase):
     def test_has_resource_path(self):
         self.assertEqual(self.client.resource_path, 'transaction')
 
+    def test_has_reference(self):
+        self.assertEqual(self.client.reference, self.random_ref)
+
     @unittest.skip
     def test_has_response(self):
         self.response = self.client.initialize(self.test_amount,
                                                self.test_email,
                                                self.plan)
-        print(dir(self.response))
         self.assertIsNotNone(self.response)
 
 
@@ -98,11 +100,12 @@ class UtilTest(unittest.TestCase):
         """
         pass
 
-    def test_is_string(self):
+    def test_utf8(self):
         self.assertIsInstance(self.value, str)
 
     def test_equal(self):
-        self.assertEqual(self.value, '138186')
+        self.value = util.utf8(138186)
+        self.assertEqual(self.value, 138186)
 
 
 class HTTPClientTest(unittest.TestCase):
@@ -135,13 +138,6 @@ class HTTPClientTest(unittest.TestCase):
     def test_verify_ssl(self):
         self.assertEqual(self.client._verify_ssl_certs, True)
 
-    @unittest.skip
-    def test_request_snot_implemented(self):
-        self.assertRaises(NotImplementedError, self.client.request(self.method,
-                                                                   self.url,
-                                                                   self.headers
-                                                                   ))
-
 
 class RequestsClientTest(unittest.TestCase):
     """TestCase class for the HTTPClient class."""
@@ -172,6 +168,28 @@ class RequestsClientTest(unittest.TestCase):
 
     def test_verify_ssl(self):
         self.assertEqual(self.client._verify_ssl_certs, True)
+
+    @unittest.skip
+    def test_kwargs_is_verify(self):
+        verify = self.kwargs['verify']
+        self.assertTrue(verify)
+
+    @unittest.skip
+    def test_kwargs_is_not_verify(self):
+        self._verify_ssl_certs = False
+        self.client.request(self.method, self.url, self.headers)
+        verify = self.kwargs['verify']
+        self.assertFalse(verify)
+
+    @unittest.skip
+    def test_status_code(self):
+        self.client.request(self.method, self.url, self.headers)
+        self.assertIsInstance(self._status_code, int)
+
+    @unittest.skip
+    def test_response(self):
+        response = self.client.request(self.method, self.url, self.headers)
+        self.assertIsInstance(response, tuple)
 
     @unittest.skip
     def test_not_implemented(self):
