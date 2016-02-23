@@ -59,8 +59,7 @@ def publish():
 @task
 def check():
     """Test project."""
-    test = local('coverage erase & & nosetests - -with-coverage'
-                 ' - -cover - package=paystack /'
+    test = local("coverage erase && nosetests  --with-coverage --cover-package=paystack/"
                  )
     if test.succeeded:
         return test
