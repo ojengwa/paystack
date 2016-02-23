@@ -1,8 +1,6 @@
 Paystack
 ========
 
-version number: 1.0.0
-
 author: Bernard Ojengwa
 
 Installation / Usage
@@ -21,6 +19,8 @@ or
     $ easy_install --upgrade paystack
 
 
+Info
+----
 
 | See http://www.pip-installer.org/en/latest/index.html for instructions
 | on installing pip. If you are on a system with easy\_install but not
@@ -29,6 +29,7 @@ or
 | you may have to prefix those commands with ``sudo``. You can learn
   more
 | about virtualenv at http://www.virtualenv.org/
+
 
 To install from source, clone this repo and run:
 
@@ -95,12 +96,17 @@ Example
 
     from paystack.resource import TransactionResource
 
+    import random
+    import string
 
     def main():
+        rand = ''.join(
+            [random.choice(
+                string.ascii_letters + string.digits) for n in range(16)])
         secret_key = 'YOUR_SECRET_KEY'
-        random_ref = 'asdsdswe224weuksfuf'
-        test_email = 'bernard@disgui.se'
-        test_amount = 5000
+        random_ref = rand
+        test_email = 'TEST_EMAIL'
+        test_amount = 'TEST_AMOUNT'
         plan = 'Basic'
         client = TransactionResource(secret_key, random_ref)
         response = client.initialize(test_amount,
