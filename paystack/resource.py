@@ -145,7 +145,7 @@ class TransactionResource(BaseAPIResource):
                                                         post_data=payload)
         self._response_headers = headers
         self._status_code = status
-        self._result = response['data']
+        self._result = response
         if not response.get('status', False):
             raise error.APIError(response.get('message'))
 

@@ -135,8 +135,7 @@ class RequestsClient(HTTPClient):  # pragma: no cover
             # e.g. a socket timeout. TODO: The other fetch methods probably
             # are susceptible to the same and should be updated.
             self._content = (lambda content: json
-                             .loads(content) if content else None)\
-                (result.content)
+                             .loads(content) if content else None)(result.content)
             self._status_code = result.status_code
 
         except Exception as e:

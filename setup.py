@@ -35,8 +35,8 @@ setup(
     packages=find_packages(exclude=['docs', 'tests']),
     package_data={
         'paystack': [
-            'paystack/cert/paystack.crt',
-            'paystack/cert/paystack.key'
+            'cert/paystack.crt',
+            'cert/paystack.key'
         ]
     },
     include_package_data=True,
