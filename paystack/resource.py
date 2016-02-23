@@ -145,19 +145,15 @@ class TransactionResource(BaseAPIResource):
                                                         post_data=payload)
         self._response_headers = headers
         self._status_code = status
-        self._result = response
-        print(response)
+        self._result = response['data']
         if not response.get('status', False):
             raise error.APIError(response.get('message'))
 
-        self.authorization_url = response.get('authorization_url', None)
-        self.access_code = response.get('access_code', None)
+        self.authorization_url = self._result.get('authorization_url', None)
+        self.access_code = self._result.get('access_code', None)
         self.email = email
         self.amount = amount
-        self.authorization_code = response\
-            .get('authorization_code')
-        print(self.authorization_code)
-
+        print(self.access_code, self.authorization_url, self._result, 'testss')
         return response
 
     def verify(self, ref=None):  # pragma no cover
@@ -179,12 +175,12 @@ class TransactionResource(BaseAPIResource):
                                                         )
         self._response_headers = headers
         self._status_code = status
-        self._result = response
+        self._result = response['data']
         if not response.get('status', False):
             raise error.APIError(response.get('message'))
 
-        self.authorization_url = response.get('authorization_url', None)
-        self.access_code = response.get('access_code', None)
+        self.authorization_code = self\
+            ._result['authorization']['authorization_code']
 
         return response
 
@@ -194,7 +190,7 @@ class TransactionResource(BaseAPIResource):
         endpoint = '/charge_authorization'
         method = 'POST'
 
-        if not authorization_code and not self.access_code:
+        if not authorization_code and not self.authorization_code:
             raise error.ValidationError('This transaction object does not'
                                         ' have an authorization code.You must'
                                         ' provide an authorization code for'
@@ -208,14 +204,14 @@ class TransactionResource(BaseAPIResource):
                                         ' specified.')
 
         authorization_code = (
-            lambda ref: authorization_code if authorization_code else self
+            lambda auth_code: auth_code if auth_code else self
             .authorization_code)(authorization_code)
 
         email = (
-            lambda ref: email if email else self.email)(email)
+            lambda email: email if email else self.email)(email)
 
         amount = (
-            lambda ref: amount if amount else self.amount)(amount)
+            lambda amount: amount if amount else self.amount)(amount)
 
         payload = {
             "reference": reference,
