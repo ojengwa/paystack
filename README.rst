@@ -1,8 +1,6 @@
 Paystack
 ========
 
-author: Bernard Ojengwa
-
 Installation / Usage
 --------------------
 
