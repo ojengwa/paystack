@@ -6,7 +6,7 @@ paystack
 Overview
 --------
 
-A Paystack API wrapper in Python
+Paystack API bindings in Python
 
 Installation / Usage
 --------------------
