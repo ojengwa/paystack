@@ -32,6 +32,8 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
+import webbrowser
+
 from paystack.client import RequestsClient
 from paystack import error
 from paystack import util
@@ -184,13 +186,13 @@ class TransactionResource(BaseAPIResource):
 
         return response
 
-    def charge(self, authorization_code=None, amount=None,
+    def charge(self, auth_code=None, amount=None,
                email=None, reference=None):  # pragma no cover
 
         endpoint = '/charge_authorization'
         method = 'POST'
 
-        if not authorization_code and not self.authorization_code:
+        if not auth_code and not self.authorization_code:
             raise error.ValidationError('This transaction object does not'
                                         ' have an authorization code.You must'
                                         ' provide an authorization code for'
@@ -205,7 +207,7 @@ class TransactionResource(BaseAPIResource):
 
         authorization_code = (
             lambda auth_code: auth_code if auth_code else self
-            .authorization_code)(authorization_code)
+            .authorization_code)(auth_code)
 
         email = (
             lambda email: email if email else self.email)(email)
@@ -233,9 +235,22 @@ class TransactionResource(BaseAPIResource):
 
         return response
 
-        @property
-        def payment_url(self):
-            return(self.authorization_url)
+    def authorize(self, auth_url=None):
+        if not auth_url and not self.authorization_url:
+            raise error.ValidationError('This transaction object does not'
+                                        ' have an authorization url.You must'
+                                        ' provide an authorization url or'
+                                        'for call the `initialize` method'
+                                        ' this transaction first.')
+
+        authorization_url = (
+            lambda auth_url: auth_url if auth_url else self
+            .authorization_url)(auth_url)
+
+        try:
+            webbrowser.open_new_tab(authorization_url)
+        except webbrowser.Error as e:
+            raise e
 
 
 class PlanResource(BaseAPIResource):  # pragma: no cover

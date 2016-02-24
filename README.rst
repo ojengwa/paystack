@@ -111,9 +111,10 @@ Example
                                      test_email,
                                      plan)
         print(response)
-        verify = client.verify()
+        client.authorize() # Will open a browser window for client to enter card details
+        verify = client.verify() # Verify client credentials
         print(verify)
-        print(client.charge())
+        print(client.charge()) # Charge an already exsiting client
 
 
 .. _nose: http://nose2.readthedocs.org/en/latest/
