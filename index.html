@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A Paystack API wrapper in Python">
+  <meta name="author" content="Bernard Ojengwa">
+  
+  <title>Paystack API documentation.</title>
+  
+
+  <link rel="shortcut icon" href="./img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="./css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="./css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="./css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "None";
+    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_url = "/";
+  </script>
+  
+  <script src="./js/jquery-2.1.1.min.js"></script>
+  <script src="./js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="./js/highlight.pack.js"></script>
+  <script src="./js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="." class="icon icon-home"> Paystack API documentation.</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href=".">Home</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#overview">Overview</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#installation-usage">Installation / Usage</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#documentation">Documentation</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#api-anatomy">API Anatomy</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#testing">Testing</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#todo">TODO</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#example">Example</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="license/">License</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href=".">Paystack API documentation.</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Home</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="overview">Overview</h2>
+<p>Paystack API bindings in Python.</p>
+<h2 id="installation-usage">Installation / Usage</h2>
+<p>To install use pip:</p>
+<pre><code>$ pip install --upgrade paystack
+</code></pre>
+<p>or</p>
+<pre><code>$ easy_install --upgrade paystack
+</code></pre>
+<p>See http://www.pip-installer.org/en/latest/index.html for instructions
+on installing pip. If you are on a system with easy_install but not
+pip, you can use easy_install instead. If you're not using virtualenv,
+you may have to prefix those commands with <code>sudo</code>. You can learn more
+about virtualenv at http://www.virtualenv.org/</p>
+<p>To install from source, clone this repo and run:</p>
+<pre><code>$ git clone https://github.com/ojengwa/paystack.git
+
+$ python setup.py install
+</code></pre>
+<h2 id="documentation">Documentation</h2>
+<p>Please see https://developers.paystack.co/docs for the most up-to-date documentation for the Paystack API.</p>
+<h2 id="api-anatomy">API Anatomy</h2>
+<p>The API resource are exposed via a single interface <code>paystack.resource</code>.</p>
+<p>Classes exposed via the interface includes:
+<code>'BaseAPIResource', 'CustomerResource', 'PlanResource', 'RequestsClient', 'TransactionResource', '__builtins__', '__doc__', '__file__', '__name__', '__package__', 'error', 'util', 'version'</code></p>
+<p>Documentation and signature for each of the methods defined in the API follows:</p>
+<p><strong>TransactionResource</strong>:</p>
+<pre><code>"""
+Base transaction resource Class.
+
+Encapsulate everything about a transaction instant.
+
+Attributes:
+    access_code (string): Paystack access_code for initiating payment
+    amount (int): Amount to pay in Kobo
+    authorization_code (string): Paystack verification authorization_code
+    authorization_url (string): Paystack verification authorization_url
+    email (string): Client's email address
+    reference (string): Unique transaction reference
+"""
+
+
+def __init__(self, api_secret, reference=None,
+             resource_path='transaction', *args, **kwargs):
+    """
+    Create a TransactionResource instance.
+
+    Args:
+        api_secret (string): Developer's API SECRET_KEY.
+        reference (string, optional): Unique transaction reference.
+        resource_path (str, optional): API resource_path. Do not change.
+        *args: Extra positional arguments.
+        **kwargs: Extra keyworded arguments.
+    """
+
+
+def initialize(self, amount, email,
+               plan=None, ref=None):  # pragma no cover
+    """
+    Transaction resource initialisation method.
+
+    Args:
+        amount (int): Amount to pay in Kobo.
+        email (string): Client's email address.
+        plan (string, optional): You customer billing plan.
+        ref (string, optional): Unique transaction reference.
+
+    Raises:
+        error.APIError: Something generally bad happened... :()
+        error.ValidationError: Bad input.
+
+    Returns:
+        response (dict): Response data from Paystack
+    """
+
+
+def verify(self, ref=None):  # pragma no cover
+    """
+    Verify transaction instance.
+
+    Args:
+        ref (string, optional): Unique transaction reference
+
+    Raises:
+        error.APIError: Something generally bad happened... :()
+        error.ValidationError: Bad input.
+
+    Returns:
+        response (dict): Dictionary containing payment verification details
+    """
+
+
+def charge(self, auth_code=None, amount=None,
+           email=None, reference=None):  # pragma no cover
+    """
+    Bill a transaction to a customer's account.
+
+    Args:
+        auth_code (string, optional): Paystack verification authorization_code
+        amount (int, optional): Amount to pay in Kobo.
+        email (string, optional): Client's email address.
+        reference (string, optional): Unique transaction reference.
+
+    Raises:
+        error.APIError: Something generally bad happened... :()
+        error.ValidationError: Bad input.
+
+    Returns:
+        response (dict): Response data from Paystack
+    """
+
+
+def authorize(self, auth_url=None):  # pragma: no cover
+    """
+    Open a browser window for client to enter card details.
+
+    Args:
+        auth_url (string, optional): Paystack verification authorization_url
+
+    Raises:
+        e: Browser Error :(
+        error.ValidationError: Bad input.
+
+    Returns:
+        None
+    """
+</code></pre>
+<h2 id="testing">Testing</h2>
+<p>The package is compatible with Python 2.6+, Python 3.1+ and PyPy.  We need to test against all of these environments to ensure compatibility.  Travis CI will automatically run our tests on push.  For local testing, we use <a href="http://nose2.readthedocs.org/en/latest/">nose</a> to handle testing across environments.</p>
+<p>To run the included test:</p>
+<ol>
+<li>
+<p>Clone the repo:</p>
+<p><code>$ git clone https://github.com/ojengwa/paystack.git</code></p>
+</li>
+<li>
+<p>Cd into project directory:</p>
+<p><code>$ cd paystack</code></p>
+</li>
+<li>
+<p>Install dependencies:</p>
+<p><code>$ pip install -r requirements.txt</code></p>
+</li>
+<li>
+<p>Run the includded test using fabric:</p>
+<p><code>$ fab test</code></p>
+</li>
+</ol>
+<h2 id="todo">TODO</h2>
+<ol>
+<li>Add Event hooks</li>
+<li>Create Consumer Resource</li>
+<li>Create Plan Resource</li>
+</ol>
+<h2 id="example">Example</h2>
+<pre><code class="python">
+from paystack.resource import TransactionResource
+
+import random
+import string
+
+def main():
+    rand = ''.join(
+        [random.choice(
+            string.ascii_letters + string.digits) for n in range(16)])
+    secret_key = 'YOUR_SECRET_KEY'
+    random_ref = rand
+    test_email = 'TEST_EMAIL'
+    test_amount = 'TEST_AMOUNT'
+    plan = 'Basic'
+    client = TransactionResource(secret_key, random_ref)
+    response = c****lient.initialize(test_amount,
+                                 test_email,
+                                 plan)
+    print(response)
+    client.authorize() # Will open a browser window for client to enter card details
+    verify = client.verify() # Verify client credentials
+    print(verify)
+    print(client.charge()) # Charge an already exsiting client
+
+</code></pre>
+
+<p>Please see the <a href="license/">project license</a> for further details.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="license/" class="btn btn-neutral float-right" title="License">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+      
+        <span style="margin-left: 15px"><a href="license/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 0.15.3
+Build Date UTC : 2016-02-24 23:19:46.940379
+-->
