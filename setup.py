@@ -33,7 +33,7 @@ setup(
 
     ],
     keywords='',
-    packages=find_packages(exclude=['docs', 'tests']),
+    packages=find_packages(exclude=['docs', 'tests', 'site']),
     package_data={
         'paystack': [
             'data/paystack.crt',
