@@ -48,7 +48,7 @@ API Anatomy
 -----------------
 
 Please see https://github.com/ojengwa/paystack for the most up-to-date
-documentation for the API Anatomy.
+documentation of the API Anatomy.
 
 
 Testing
