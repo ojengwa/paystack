@@ -85,8 +85,6 @@ class RequestsClient(HTTPClient):  # pragma: no cover
         name (str): Description
     """
 
-    name = 'requests'
-
     def request(self, method, url, headers, post_data=None):
         """
         Summary.

@@ -1,5 +1,6 @@
 paystack
 ===============================
+
 [![Build Status](https://travis-ci.org/ojengwa/paystack.svg?branch=master)](https://travis-ci.org/ojengwa/paystack) [![Coverage Status](https://coveralls.io/repos/github/ojengwa/paystack/badge.svg?branch=master)](https://coveralls.io/github/ojengwa/paystack?branch=master) [![PyPI version](https://badge.fury.io/py/paystack.svg)](https://badge.fury.io/py/paystack)
 
 
@@ -36,6 +37,119 @@ Documentation
 
 Please see https://developers.paystack.co/docs for the most up-to-date documentation for the Paystack API.
 
+
+API Anatomy
+-------------
+
+The API resource are exposed via a single interface `paystack`.
+
+Classes exposed via the interface includes:
+`'CustomerResource', 'PlanResource', 'TransactionResource', '__all__', '__builtins__', '__doc__', '__file__', '__name__', '__package__', '__path__', '__version__'`
+
+
+**TransactionResource**:
+
+    """
+    Base transaction resource Class.
+
+    Encapsulate everything about a transaction instant.
+
+    Attributes:
+        access_code (string): Paystack access_code for initiating payment
+        amount (int): Amount to pay in Kobo
+        authorization_code (string): Paystack verification authorization_code
+        authorization_url (string): Paystack verification authorization_url
+        email (string): Client's email address
+        reference (string): Unique transaction reference
+    """
+
+
+    def __init__(self, api_secret, reference=None,
+                 resource_path='transaction', *args, **kwargs):
+        """
+        Create a TransactionResource instance.
+
+        Args:
+            api_secret (string): Developer's API SECRET_KEY.
+            reference (string, optional): Unique transaction reference.
+            resource_path (str, optional): API resource_path. Do not change.
+            *args: Extra positional arguments.
+            **kwargs: Extra keyworded arguments.
+        """
+
+
+    def initialize(self, amount, email,
+                   plan=None, ref=None):  # pragma no cover
+        """
+        Transaction resource initialisation method.
+
+        Args:
+            amount (int): Amount to pay in Kobo.
+            email (string): Client's email address.
+            plan (string, optional): You customer billing plan.
+            ref (string, optional): Unique transaction reference.
+
+        Raises:
+            error.APIError: Something generally bad happened... :()
+            error.ValidationError: Bad input.
+
+        Returns:
+            response (dict): Response data from Paystack
+        """
+
+
+    def verify(self, ref=None):  # pragma no cover
+        """
+        Verify transaction instance.
+
+        Args:
+            ref (string, optional): Unique transaction reference
+
+        Raises:
+            error.APIError: Something generally bad happened... :()
+            error.ValidationError: Bad input.
+
+        Returns:
+            response (dict): Dictionary containing payment verification details
+        """
+
+
+    def charge(self, auth_code=None, amount=None,
+               email=None, reference=None):  # pragma no cover
+        """
+        Bill a transaction to a customer's account.
+
+        Args:
+            auth_code (string, optional): Paystack verification authorization_code
+            amount (int, optional): Amount to pay in Kobo.
+            email (string, optional): Client's email address.
+            reference (string, optional): Unique transaction reference.
+
+        Raises:
+            error.APIError: Something generally bad happened... :()
+            error.ValidationError: Bad input.
+
+        Returns:
+            response (dict): Response data from Paystack
+        """
+
+
+    def authorize(self, auth_url=None):  # pragma: no cover
+        """
+        Open a browser window for client to enter card details.
+
+        Args:
+            auth_url (string, optional): Paystack verification authorization_url
+
+        Raises:
+            e: Browser Error :(
+            error.ValidationError: Bad input.
+
+        Returns:
+            None
+        """
+
+
 Testing
 -------------
 
@@ -71,7 +185,7 @@ Example
 
 ```
 
-from paystack.resource import TransactionResource
+from paystack import TransactionResource
 
 import random
 import string
@@ -86,7 +200,7 @@ def main():
     test_amount = 'TEST_AMOUNT'
     plan = 'Basic'
     client = TransactionResource(secret_key, random_ref)
-    response = client.initialize(test_amount,
+    response = c****lient.initialize(test_amount,
                                  test_email,
                                  plan)
     print(response)

@@ -2,6 +2,7 @@
 """TestCases for the PaystackSDK."""
 
 import unittest
+import random
 
 from paystack import util
 from paystack.resource import (TransactionResource,
@@ -47,11 +48,13 @@ class TransactionResourceTest(unittest.TestCase):
             None
         """
         self.secret_key = 'sk_test_16c58271c29a007970de0353d8a47868df727cd0'
-        self.random_ref = 'adkjwnhbhkbhb34242uksfuf'
+        self.random_ref = 'adkjwnhbhkbhb34242uksfuf' + \
+            str(random.random())
         self.test_email = 'bernard@disgui.se'
         self.test_amount = 5000
         self.plan = 'Basic'
         self.client = TransactionResource(self.secret_key, self.random_ref)
+        self.client.initialize(self.test_amount, self.test_email, self.plan)
 
     def tearDown(self):
         """

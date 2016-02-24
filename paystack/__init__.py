@@ -31,15 +31,15 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
-# from paystack.resource import (TransactionResource,
-#                                CustomerResource,
-#                                PlanResource)
+from paystack.resource import (TransactionResource,
+                               CustomerResource,
+                               PlanResource)
 
-# from paystack.version import VERSION
+from paystack.version import VERSION as __version__
 
-# __all__ = [
-#     'TransactionResource',
-#     'CustomerResource',
-#     'PlanResource',
-#     'VERSION'
-# ]
+__all__ = [
+    'TransactionResource',
+    'CustomerResource',
+    'PlanResource',
+    '__version__'
+]

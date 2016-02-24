@@ -41,8 +41,30 @@ from paystack import version
 
 
 class BaseAPIResource(object):  # pragma no cover
+    """
+    Abstract resource class.
+
+    Attributes:
+        api_host (TYPE): Description
+        api_secret (TYPE): Description
+        client (TYPE): Description
+        protocol (str): Description
+        request_headers (TYPE): Description
+        resource_path (TYPE): Description
+    """
 
     def __init__(self, api_secret=None, resource_path=None, verify_ssl=True):
+        """
+        Summary.
+
+        Args:
+            api_secret (TYPE, optional): Description
+            resource_path (TYPE, optional): Description
+            verify_ssl (bool, optional): Description
+
+        Raises:
+            error.ValidationError: Description
+        """
         self.protocol = 'https'
         self.api_host = self.protocol + '://api.paystack.co/'
 
@@ -67,39 +89,127 @@ class BaseAPIResource(object):  # pragma no cover
         self._response_headers = {}
 
     def all(self):  # pragma: no cover
+        """
+        Summary.
+
+        Raises:
+            NotImplementedError: Description
+
+        Returns:
+            name (TYPE): Description
+        """
         raise NotImplementedError(
             'BaseAPIResource subclass must implement this method.')
 
     def one(self, id):  # pragma: no cover
+        """
+        Summary.
+
+        Args:
+            id (TYPE): Description
+
+        Raises:
+            NotImplementedError: Description
+
+        Returns:
+            name (TYPE): Description
+        """
         raise NotImplementedError(
             'BaseAPIResource subclass must implement this method.')
 
     def post(self, data):  # pragma: no cover
+        """
+        Summary.
+
+        Args:
+            data (TYPE): Description
+
+        Raises:
+            NotImplementedError: Description
+
+        Returns:
+            name (TYPE): Description
+        """
         raise NotImplementedError(
             'BaseAPIResource subclass must implement this method.')
 
     def delete(self, id):  # pragma: no cover
+        """
+        Summary.
+
+        Args:
+            id (TYPE): Description
+
+        Raises:
+            NotImplementedError: Description
+
+        Returns:
+            name (TYPE): Description
+        """
         raise NotImplementedError(
             'BaseAPIResource subclass must implement this method.')
 
     def update(self, id, data):  # pragma: no cover
+        """
+        Summary.
+
+        Args:
+            id (TYPE): Description
+            data (TYPE): Description
+
+        Raises:
+            NotImplementedError: Description
+
+        Returns:
+            name (TYPE): Description
+        """
         raise NotImplementedError(
             'BaseAPIResource subclass must implement this method.')
 
     @property
     def status(self):
+        """
+        Summary.
+
+        Returns:
+            name (TYPE): Description
+        """
         return self._status_code
 
     @property
     def response(self):
+        """
+        Summary.
+
+        Returns:
+            name (TYPE): Description
+        """
         return self._result
 
     @property
     def headers(self):
+        """
+        Summary.
+
+        Returns:
+            name (TYPE): Description
+        """
         self._response_headers
 
     @classmethod
     def _class_name(cls, resource_path):
+        """
+        Summary.
+
+        Args:
+            resource_path (TYPE): Description
+
+        Raises:
+            error.APIError: Description
+
+        Returns:
+            name (TYPE): Description
+        """
         if cls == BaseAPIResource:
             raise error.APIError(
                 'You cannot instantiate the API Base class directory.'
@@ -109,13 +219,50 @@ class BaseAPIResource(object):  # pragma no cover
 
 
 class CustomerResource(BaseAPIResource):  # pragma: no cover
-    pass
+    """Summary."""
+
+    def __init__(self, *args, **kwargs):
+        """
+        Summary.
+
+        Args:
+            *args: Description
+            **kwargs: Description
+
+        Raises:
+            NotImplementedError: Description
+        """
+        raise NotImplementedError(
+            'CustomerResource: hasn\'t being implemented yet')
 
 
 class TransactionResource(BaseAPIResource):
+    """
+    Base transaction resource Class.
+
+    Encapsulate everything about a transaction instant.
+
+    Attributes:
+        access_code (string): Paystack access_code for initiating payment
+        amount (int): Amount to pay in Kobo
+        authorization_code (string): Paystack verification authorization_code
+        authorization_url (string): Paystack verification authorization_url
+        email (string): Client's email address
+        reference (string): Unique transaction reference
+    """
 
     def __init__(self, api_secret, reference=None,
                  resource_path='transaction', *args, **kwargs):
+        """
+        Create a TransactionResource instance.
+
+        Args:
+            api_secret (string): Developer's API SECRET_KEY.
+            reference (string, optional): Unique transaction reference.
+            resource_path (str, optional): API resource_path. Do not change.
+            *args: Extra positional arguments.
+            **kwargs: Extra keyworded arguments.
+        """
         super(TransactionResource, self)\
             .__init__(api_secret, resource_path, *args, **kwargs)
         self.reference = reference  # pragma no cover
@@ -127,22 +274,36 @@ class TransactionResource(BaseAPIResource):
 
     def initialize(self, amount, email,
                    plan=None, ref=None):  # pragma no cover
+        """
+        Transaction resource initialisation method.
+
+        Args:
+            amount (int): Amount to pay in Kobo.
+            email (string): Client's email address.
+            plan (string, optional): You customer billing plan.
+            ref (string, optional): Unique transaction reference.
+
+        Raises:
+            error.APIError: Something generally bad happened... :()
+            error.ValidationError: Bad input.
+
+        Returns:
+            response (dict): Response data from Paystack
+        """
         endpoint = '/initialize'
         method = 'POST'
-        if not ref and not self.reference:
-            raise error.ValidationError('A unique object reference was not '
-                                        'provided during instantiation. You'
-                                        ' must provide a reference for this'
-                                        ' transaction.')
+
         self.reference = (lambda ref: ref if ref else self.reference)(ref)
         self.email = email
         self.amount = amount
         payload = {
-            "reference": self.reference,
             "amount": amount,
             "email": email,
             "plan": plan
         }
+        if self.reference:
+            payload.update(reference=self.reference)
+
         url = self.api_host + self.resource_path + endpoint
         response, status, headers = self.client.request(method, url,
                                                         self.request_headers,
@@ -159,6 +320,19 @@ class TransactionResource(BaseAPIResource):
         return response
 
     def verify(self, ref=None):  # pragma no cover
+        """
+        Verify transaction instance.
+
+        Args:
+            ref (string, optional): Unique transaction reference
+
+        Raises:
+            error.APIError: Something generally bad happened... :()
+            error.ValidationError: Bad input.
+
+        Returns:
+            response (dict): Dictionary containing payment verification details
+        """
         method = 'GET'
 
         if not ref and not self.reference:
@@ -188,7 +362,22 @@ class TransactionResource(BaseAPIResource):
 
     def charge(self, auth_code=None, amount=None,
                email=None, reference=None):  # pragma no cover
+        """
+        Bill a transaction to a customer's account.
 
+        Args:
+            auth_code (string, optional): Paystack verification authorization_code
+            amount (int, optional): Amount to pay in Kobo.
+            email (string, optional): Client's email address.
+            reference (string, optional): Unique transaction reference.
+
+        Raises:
+            error.APIError: Something generally bad happened... :()
+            error.ValidationError: Bad input.
+
+        Returns:
+            response (dict): Response data from Paystack
+        """
         endpoint = '/charge_authorization'
         method = 'POST'
 
@@ -235,7 +424,20 @@ class TransactionResource(BaseAPIResource):
 
         return response
 
-    def authorize(self, auth_url=None):
+    def authorize(self, auth_url=None):  # pragma: no cover
+        """
+        Open a browser window for client to enter card details.
+
+        Args:
+            auth_url (string, optional): Paystack verification authorization_url
+
+        Raises:
+            e: Browser Error :(
+            error.ValidationError: Bad input.
+
+        Returns:
+            None
+        """
         if not auth_url and not self.authorization_url:
             raise error.ValidationError('This transaction object does not'
                                         ' have an authorization url.You must'
@@ -254,4 +456,20 @@ class TransactionResource(BaseAPIResource):
 
 
 class PlanResource(BaseAPIResource):  # pragma: no cover
-    pass
+    """
+    Summary.
+    """
+
+    def __init__(self, *args, **kwargs):
+        """
+        Summary.
+
+        Args:
+            *args: Description
+            **kwargs: Description
+
+        Raises:
+            NotImplementedError: Description
+        """
+        raise NotImplementedError(
+            'PlanResource: hasn\'t being implemented yet')

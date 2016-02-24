@@ -44,6 +44,13 @@ Please see https://developers.paystack.co/docs for the most up-to-date
 documentation for the Paystack API.
 
 
+API Anatomy
+-----------------
+
+Please see https://github.com/ojengwa/paystack for the most up-to-date
+documentation for the API Anatomy.
+
+
 Testing
 -------
 
@@ -92,7 +99,7 @@ Example
 
 ::
 
-    from paystack.resource import TransactionResource
+    from paystack import TransactionResource
 
     import random
     import string
