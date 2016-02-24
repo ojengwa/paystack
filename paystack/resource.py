@@ -123,8 +123,8 @@ class TransactionResource(BaseAPIResource):
         self.amount = None  # pragma no cover
         self.authorization_code = None  # pragma no cover
 
-    def initialize(self, amount, email, ref=None,
-                   plan=None):  # pragma no cover
+    def initialize(self, amount, email,
+                   plan=None, ref=None):  # pragma no cover
         endpoint = '/initialize'
         method = 'POST'
         if not ref and not self.reference:
@@ -133,6 +133,8 @@ class TransactionResource(BaseAPIResource):
                                         ' must provide a reference for this'
                                         ' transaction.')
         self.reference = (lambda ref: ref if ref else self.reference)(ref)
+        self.email = email
+        self.amount = amount
         payload = {
             "reference": self.reference,
             "amount": amount,
@@ -149,11 +151,9 @@ class TransactionResource(BaseAPIResource):
         if not response.get('status', False):
             raise error.APIError(response.get('message'))
 
-        self.authorization_url = self._result.get('authorization_url', None)
-        self.access_code = self._result.get('access_code', None)
-        self.email = email
-        self.amount = amount
-        print(self.access_code, self.authorization_url, self._result, 'testss')
+        self.authorization_url = self._result['data'].get('authorization_url')
+        self.access_code = self._result['data'].get('access_code')
+
         return response
 
     def verify(self, ref=None):  # pragma no cover
@@ -231,10 +231,11 @@ class TransactionResource(BaseAPIResource):
         if not response.get('status', False):
             raise error.APIError(response.get('message'))
 
-        # self.authorization_url = response.get('authorization_url', None)
-        # self.access_code = response.get('access_code', None)
-
         return response
+
+        @property
+        def payment_url(self):
+            return(self.authorization_url)
 
 
 class PlanResource(BaseAPIResource):  # pragma: no cover
