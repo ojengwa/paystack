@@ -6,6 +6,9 @@ python:
   - "3.5"
   - "pypy"
 
+before_install:
+  - pip install codecov
+
 install:
   - pip install -r requirements.txt
   - pip install -r test-requirements.txt
@@ -14,4 +17,5 @@ script:
     nosetests  --with-coverage --cover-package=paystack/
 
 after_success:
-  coveralls
+  - coveralls
+  - codecov
