@@ -99,7 +99,7 @@ Example
 
 ::
 
-    from paystack import TransactionResource
+    from paystack.resource import TransactionResource
 
     import random
     import string

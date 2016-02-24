@@ -41,11 +41,12 @@ Please see https://developers.paystack.co/docs for the most up-to-date documenta
 API Anatomy
 -------------
 
-The API resource are exposed via a single interface `paystack`.
+The API resource are exposed via a single interface `paystack.resource`.
 
 Classes exposed via the interface includes:
-`'CustomerResource', 'PlanResource', 'TransactionResource', '__all__', '__builtins__', '__doc__', '__file__', '__name__', '__package__', '__path__', '__version__'`
+`'BaseAPIResource', 'CustomerResource', 'PlanResource', 'RequestsClient', 'TransactionResource', '__builtins__', '__doc__', '__file__', '__name__', '__package__', 'error', 'util', 'version'`
 
+Documentation and signature for each of the methods defined in the API follows:
 
 **TransactionResource**:
 
@@ -185,7 +186,7 @@ Example
 
 ```
 
-from paystack import TransactionResource
+from paystack.resource import TransactionResource
 
 import random
 import string
