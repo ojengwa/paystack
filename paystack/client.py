@@ -117,7 +117,7 @@ class RequestsClient(HTTPClient):  # pragma: no cover
                 result = requests.request(method,
                                           url,
                                           headers=headers,
-                                          data=json.dumps(post_data),
+                                          json=post_data,
                                           timeout=80,
                                           **self.kwargs)
             except TypeError as e:  # pragma: no cover

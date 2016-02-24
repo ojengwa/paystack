@@ -65,8 +65,8 @@ class BaseAPIResource(object):  # pragma no cover
         Raises:
             error.ValidationError: Description
         """
-        self.protocol = 'https'
-        self.api_host = self.protocol + '://api.paystack.co/'
+        self.protocol = util.utf8('https')
+        self.api_host = util.utf8(self.protocol + '://api.paystack.co/')
 
         if not api_secret:  # pragma: no cover
             raise error.ValidationError("You must provide your API SECRET_KEY "
@@ -265,7 +265,7 @@ class TransactionResource(BaseAPIResource):
         """
         super(TransactionResource, self)\
             .__init__(api_secret, resource_path, *args, **kwargs)
-        self.reference = reference  # pragma no cover
+        self.reference = util.utf8(reference)  # pragma no cover
         self.authorization_url = None  # pragma no cover
         self.access_code = None  # pragma no cover
         self.email = None  # pragma no cover
