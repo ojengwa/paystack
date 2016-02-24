@@ -36,7 +36,7 @@ import os
 import textwrap
 import requests
 
-from paystack import error
+from paystack import error, util
 
 try:
     import json
@@ -74,7 +74,8 @@ class HTTPClient(object):
         """
 
         raise NotImplementedError(
-            'HTTPClient subclasses must implement `request`')  # pragma: no cover
+            'HTTPClient subclasses must implement `request`'
+        )  # pragma: no cover
 
 
 class RequestsClient(HTTPClient):  # pragma: no cover
@@ -114,14 +115,14 @@ class RequestsClient(HTTPClient):  # pragma: no cover
 
         try:
             try:
-                result = requests.request(method,
-                                          url,
-                                          headers=headers,
-                                          json=post_data,
-                                          timeout=80,
-                                          **self.kwargs)
+                result = requests.request(
+                    method,
+                    url,
+                    headers=headers,
+                    data=json.dumps(util.utf8(post_data)),
+                    timeout=80,
+                    **self.kwargs)
             except TypeError as e:  # pragma: no cover
-                print(post_data)
                 raise TypeError(
                     'Warning: It looks like your installed version of the '
                     '"requests" library is not compatible with Paystack\'s '
@@ -133,8 +134,8 @@ class RequestsClient(HTTPClient):  # pragma: no cover
             # This causes the content to actually be read, which could cause
             # e.g. a socket timeout. TODO: The other fetch methods probably
             # are susceptible to the same and should be updated.
-            self._content = (lambda content: json
-                             .loads(content) if content else None)(result.content)
+            self._content = (lambda con: json
+                             .loads(con) if con else None)(result.content)
             self._status_code = result.status_code
 
         except Exception as e:
