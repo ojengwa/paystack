@@ -121,6 +121,7 @@ class RequestsClient(HTTPClient):  # pragma: no cover
                                           timeout=80,
                                           **self.kwargs)
             except TypeError as e:  # pragma: no cover
+                print(post_data)
                 raise TypeError(
                     'Warning: It looks like your installed version of the '
                     '"requests" library is not compatible with Paystack\'s '
