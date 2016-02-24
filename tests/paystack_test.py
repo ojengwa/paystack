@@ -57,7 +57,6 @@ class TransactionResourceTest(unittest.TestCase):
         self.test_amount = 5000
         self.plan = 'Basic'
         self.client = TransactionResource(self.secret_key, self.random_ref)
-        self.client.initialize(self.test_amount, self.test_email, self.plan)
 
     def tearDown(self):
         """
