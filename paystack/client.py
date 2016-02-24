@@ -36,7 +36,7 @@ import os
 import textwrap
 import requests
 
-from paystack import error, util
+from paystack import error
 
 try:
     import json
@@ -72,7 +72,6 @@ class HTTPClient(object):
         Returns:
             TYPE: Description
         """
-
         raise NotImplementedError(
             'HTTPClient subclasses must implement `request`'
         )  # pragma: no cover
@@ -115,13 +114,12 @@ class RequestsClient(HTTPClient):  # pragma: no cover
 
         try:
             try:
-                result = requests.request(
-                    method,
-                    url,
-                    headers=headers,
-                    data=json.dumps(util.utf8(post_data)),
-                    timeout=80,
-                    **self.kwargs)
+                result = requests.request(method,
+                                          url,
+                                          headers=headers,
+                                          data=json.dumps(post_data),
+                                          timeout=80,
+                                          **self.kwargs)
             except TypeError as e:  # pragma: no cover
                 raise TypeError(
                     'Warning: It looks like your installed version of the '
@@ -134,8 +132,8 @@ class RequestsClient(HTTPClient):  # pragma: no cover
             # This causes the content to actually be read, which could cause
             # e.g. a socket timeout. TODO: The other fetch methods probably
             # are susceptible to the same and should be updated.
-            self._content = (lambda con: json
-                             .loads(con) if con else None)(result.content)
+            self._content = (lambda cont: json
+                             .loads(cont) if cont else None)(result.content)
             self._status_code = result.status_code
 
         except Exception as e:
