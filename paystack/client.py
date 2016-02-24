@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Paystack API wrapper.
 

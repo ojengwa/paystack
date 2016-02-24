@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Paystack API wrapper.
 
@@ -42,7 +41,7 @@ except Exception as e:
 
 
 def utf8(value):
-
+    """String encoding utility."""
     if sys.version_info < (3, 0):
         if isinstance(value, unicode):  # pragma: no cover
             return value.encode('utf-8')

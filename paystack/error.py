@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Paystack API wrapper.
 
@@ -36,24 +35,36 @@ from requests import RequestException, ConnectionError
 
 
 class Error(RequestException):
+    """Summary."""
+
     pass
 
 
 class APIError(Error):
+    """Summary."""
+
     pass
 
 
 class APIConnectionError(Error, ConnectionError):
+    """Summary."""
+
     pass
 
 
 class ValidationError(Error):
+    """Summary."""
+
     pass
 
 
 class AuthorizationError(Error):
+    """Summary."""
+
     pass
 
 
 class InvalidRequestError(Error):
+    """Summary."""
+
     pass

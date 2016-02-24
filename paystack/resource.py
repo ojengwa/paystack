@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Paystack API wrapper.
 
@@ -26,12 +25,13 @@ AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
 DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
 FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OƒR
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
 SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
+
 import webbrowser
 
 from paystack.client import RequestsClient
@@ -366,7 +366,7 @@ class TransactionResource(BaseAPIResource):
         Bill a transaction to a customer's account.
 
         Args:
-            auth_code (string, optional): Paystack verification authorization_code
+            auth_code (string, optional): Paystack verified authorization_code
             amount (int, optional): Amount to pay in Kobo.
             email (string, optional): Client's email address.
             reference (string, optional): Unique transaction reference.
@@ -429,7 +429,7 @@ class TransactionResource(BaseAPIResource):
         Open a browser window for client to enter card details.
 
         Args:
-            auth_url (string, optional): Paystack verification authorization_url
+            auth_url (string, optional): Paystack verified authorization_url
 
         Raises:
             e: Browser Error :(
@@ -456,9 +456,7 @@ class TransactionResource(BaseAPIResource):
 
 
 class PlanResource(BaseAPIResource):  # pragma: no cover
-    """
-    Summary.
-    """
+    """Summary."""
 
     def __init__(self, *args, **kwargs):
         """
