@@ -34,6 +34,7 @@ To install from source, clone this repo and run:
 ::
 
     $ git clone https://github.com/ojengwa/paystack.git
+
     $ python setup.py install
 
 
@@ -47,7 +48,7 @@ documentation for the Paystack API.
 API Anatomy
 -----------------
 
-Please see https://github.com/ojengwa/paystack for the most up-to-date
+Please see https://ojengwa.github.io/paystack/ for the most up-to-date
 documentation of the API Anatomy.
 
 
@@ -122,6 +123,7 @@ Example
         verify = client.verify() # Verify client credentials
         print(verify)
         print(client.charge()) # Charge an already exsiting client
+
 
 
 .. _nose: http://nose2.readthedocs.org/en/latest/
