@@ -3,6 +3,7 @@
 
 import unittest
 import random
+import string
 
 from paystack import util
 from paystack.resource import (TransactionResource,
@@ -47,9 +48,11 @@ class TransactionResourceTest(unittest.TestCase):
         Returns:
             None
         """
+        rand = ''.join(
+            [random
+             .choice(string.ascii_letters + string.digits) for n in range(16)])
         self.secret_key = 'sk_test_16c58271c29a007970de0353d8a47868df727cd0'
-        self.random_ref = 'adkjwnhbhkbhb34242uksfuf' + \
-            str(random.random())
+        self.random_ref = rand
         self.test_email = 'bernard@disgui.se'
         self.test_amount = 5000
         self.plan = 'Basic'
