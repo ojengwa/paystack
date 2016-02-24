@@ -86,7 +86,7 @@ output/*/index.html
 
 # Sphinx
 docs/_build
-
+mkdocs.yml
 # Cookiecutter
 output/
 site/
