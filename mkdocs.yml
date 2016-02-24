@@ -1,0 +1,6 @@
+site_name: Paystack API documentation.
+theme: readthedocs
+repo_url: https://github.com/ojengwa/paystack
+repo_name: paystack
+site_description: A Paystack API wrapper in Python
+site_author: Bernard Ojengwa
