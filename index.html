@@ -5,10 +5,10 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="A Paystack API wrapper in Python">
+  <meta name="description" content="A Paystack API wrapper in Python.">
   <meta name="author" content="Bernard Ojengwa">
   
-  <title>Paystack API documentation.</title>
+  <title>Paystack API Documentation.</title>
   
 
   <link rel="shortcut icon" href="./img/favicon.ico">
@@ -43,7 +43,7 @@
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
       <div class="wy-side-nav-search">
-        <a href="." class="icon icon-home"> Paystack API documentation.</a>
+        <a href="." class="icon icon-home"> Paystack API Documentation.</a>
         <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -103,7 +103,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href=".">Paystack API documentation.</a>
+        <a href=".">Paystack API Documentation.</a>
       </nav>
 
       
@@ -129,6 +129,7 @@
               
                 <h2 id="overview">Overview</h2>
 <p>Paystack API bindings in Python.</p>
+<p><a href="https://travis-ci.org/ojengwa/paystack"><img alt="Build Status" src="https://travis-ci.org/ojengwa/paystack.svg?branch=master" /></a> <a href="https://coveralls.io/github/ojengwa/paystack?branch=master"><img alt="Coverage Status" src="https://coveralls.io/repos/github/ojengwa/paystack/badge.svg?branch=master" /></a> <a href="https://badge.fury.io/py/paystack"><img alt="PyPI version" src="https://badge.fury.io/py/paystack.svg" /></a></p>
 <h2 id="installation-usage">Installation / Usage</h2>
 <p>To install use pip:</p>
 <pre><code>$ pip install --upgrade paystack
@@ -136,11 +137,11 @@
 <p>or</p>
 <pre><code>$ easy_install --upgrade paystack
 </code></pre>
-<p>See http://www.pip-installer.org/en/latest/index.html for instructions
+<p>See <a href="http://www.pip-installer.org/en/latest/index.html">pip-installer</a> for instructions
 on installing pip. If you are on a system with easy_install but not
 pip, you can use easy_install instead. If you're not using virtualenv,
 you may have to prefix those commands with <code>sudo</code>. You can learn more
-about virtualenv at http://www.virtualenv.org/</p>
+about virtualenv at <a href="http://www.virtualenv.org/">http://www.virtualenv.org/</a></p>
 <p>To install from source, clone this repo and run:</p>
 <pre><code>$ git clone https://github.com/ojengwa/paystack.git
 
@@ -256,22 +257,22 @@ def authorize(self, auth_url=None):  # pragma: no cover
 </code></pre>
 <h2 id="testing">Testing</h2>
 <p>The package is compatible with Python 2.6+, Python 3.1+ and PyPy.  We need to test against all of these environments to ensure compatibility.  Travis CI will automatically run our tests on push.  For local testing, we use <a href="http://nose2.readthedocs.org/en/latest/">nose</a> to handle testing across environments.</p>
-<p>To run the included test:</p>
+<p>To run the included test using [fabric](http://fabfile.org:</p>
 <ol>
 <li>
 <p>Clone the repo:</p>
 <p><code>$ git clone https://github.com/ojengwa/paystack.git</code></p>
 </li>
 <li>
-<p>Cd into project directory:</p>
+<p>CD into project directory:</p>
 <p><code>$ cd paystack</code></p>
 </li>
 <li>
 <p>Install dependencies:</p>
-<p><code>$ pip install -r requirements.txt</code></p>
+<p><code>$ fab install</code></p>
 </li>
 <li>
-<p>Run the includded test using fabric:</p>
+<p>Run the includded test:</p>
 <p><code>$ fab test</code></p>
 </li>
 </ol>
@@ -328,6 +329,8 @@ def main():
   <div role="contentinfo">
     <!-- Copyright etc -->
     
+      <p>©2016, Bernard Ojengwa</p>
+    
   </div>
 
   Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
@@ -355,5 +358,5 @@ def main():
 
 <!--
 MkDocs version : 0.15.3
-Build Date UTC : 2016-02-24 23:19:46.940379
+Build Date UTC : 2016-02-25 00:40:50.078796
 -->
