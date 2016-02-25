@@ -171,8 +171,7 @@ Attributes:
 """
 
 
-def __init__(self, api_secret, reference=None,
-             resource_path='transaction', *args, **kwargs):
+def __init__(self, api_secret, reference=None, resource_path='transaction'):
     """
     Create a TransactionResource instance.
 
@@ -185,8 +184,7 @@ def __init__(self, api_secret, reference=None,
     """
 
 
-def initialize(self, amount, email,
-               plan=None, ref=None):
+def initialize(self, amount, email, plan=None, ref=None):
     """
     Transaction resource initialisation method.
 
@@ -221,8 +219,7 @@ def verify(self, ref=None):
     """
 
 
-def charge(self, auth_code=None, amount=None,
-           email=None, reference=None):
+def charge(self, auth_code=None, amount=None, email=None, reference=None):
     """
     Bill a transaction to a customer's account.
 
@@ -300,7 +297,7 @@ def main():
     test_amount = 'TEST_AMOUNT'
     plan = 'Basic'
     client = TransactionResource(secret_key, random_ref)
-    response = c****lient.initialize(test_amount,
+    response = client.initialize(test_amount,
                                  test_email,
                                  plan)
     print(response)
@@ -360,5 +357,5 @@ def main():
 
 <!--
 MkDocs version : 0.15.3
-Build Date UTC : 2016-02-25 17:08:07.609874
+Build Date UTC : 2016-02-25 17:12:55.825662
 -->
