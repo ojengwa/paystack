@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from setuptools import setup, find_packages
 from codecs import open
 from os import path
@@ -47,5 +48,5 @@ setup(
         'requests',
         'simplejson'
     ],
-    author_email='bernardojengwa@gmail.com'
+    author_email="bernardojengwa@gmail.com"
 )
