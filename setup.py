@@ -47,5 +47,5 @@ setup(
         'requests',
         'simplejson'
     ],
-    author_email='bernardojengwa@gmail.com'.encode('utf-8')
+    author_email='bernardojengwa@gmail.com'
 )
