@@ -153,7 +153,8 @@ $ python setup.py install
 <h2 id="api-anatomy">API Anatomy</h2>
 <p>The API resource are exposed via a single interface <code>paystack.resource</code>.</p>
 <p>Classes exposed via the interface includes:
-<code>'BaseAPIResource', 'CustomerResource', 'PlanResource', 'RequestsClient', 'TransactionResource', '__builtins__', '__doc__', '__file__', '__name__', '__package__', 'error', 'util', 'version'</code></p>
+<code>'BaseAPIResource', 'CustomerResource', 'PlanResource', 'RequestsClient', 'TransactionResource', '__builtins__',
+'__doc__', '__file__', '__name__', '__package__', 'error', 'util', 'version'</code></p>
 <p>Documentation and signature for each of the methods defined in the API follows:</p>
 <p><strong>TransactionResource</strong>:</p>
 <pre><code>"""
@@ -241,7 +242,7 @@ def charge(self, auth_code=None, amount=None,
     """
 
 
-def authorize(self, auth_url=None):  # pragma: no cover
+def authorize(self, auth_url=None):
     """
     Open a browser window for client to enter card details.
 
@@ -360,5 +361,5 @@ def main():
 
 <!--
 MkDocs version : 0.15.3
-Build Date UTC : 2016-02-25 17:03:40.154767
+Build Date UTC : 2016-02-25 17:06:38.805255
 -->
