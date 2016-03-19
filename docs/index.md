@@ -152,7 +152,7 @@ Testing
 
 The package is compatible with Python 2.6+, Python 3.1+ and PyPy.  We need to test against all of these environments to ensure compatibility.  Travis CI will automatically run our tests on push.  For local testing, we use [nose](http://nose2.readthedocs.org/en/latest/) to handle testing across environments.
 
-To run the included test using [fabric](http://fabfile.org:
+To run the included test using [fabric](http://fabfile.org):
 
 1. Clone the repo:
 
