@@ -1,6 +1,14 @@
-site_name: Paystack API documentation.
-theme: readthedocs
-repo_url: https://github.com/ojengwa/paystack
-repo_name: paystack
+site_name: Paystack API Documentation.
+theme: mkdocs
+repo_url: https://github.com/ojengwa/paystack/
+repo_name: Github Repo
 site_description: A Paystack API wrapper in Python.
 site_author: Bernard Ojengwa
+copyright: ©2016, Bernard Ojengwa
+
+extra:
+    version: 1.5.0
+    links:
+        - https://github.com/mkdocs
+        - https://docs.readthedocs.org/en/latest/builds.html#mkdocs
+        - http://www.mkdocs.org/
