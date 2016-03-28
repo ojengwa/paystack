@@ -147,6 +147,17 @@ Documentation and signature for each of the methods defined in the API follows:
         """
 
 
+Workflows
+-------------
+
+This library was designed with with pluggablility and ease of use in mind. Two of the most common workflows are well supported:
+
+1. New Transaction Workflow:
+
+    Most times, we might need to initiate a completely new transaction. The API provides us with simple methods that map to the various endpoints exposed by the [Paystack](https://developers.paystack.co/docs) platform. Also, most of this methods comes with sane defaults so you don't have to repeat the obvious.
+
+2. Partial Transaction Workflow
+
 Testing
 -------------
 
