@@ -156,7 +156,9 @@ This library was designed with with pluggablility and ease of use in mind. Two o
 
     Most times, we might need to initiate a completely new transaction. The API provides us with simple methods that map to the various endpoints exposed by the [Paystack](https://developers.paystack.co/docs) platform. Also, most of this methods comes with sane defaults so you don't have to repeat the obvious.
 
-2. Partial Transaction Workflow
+2. Partial Transaction Workflow:
+
+    Example of when you might have some partial transactions to complete includes (incuring bills, intances where you initiate the transaction using the frontend SDKs, etc...).
 
 Testing
 -------------
