@@ -158,7 +158,9 @@ This library was designed with with pluggablility and ease of use in mind. Two o
 
 2. Partial Transaction Workflow:
 
-    Example of when you might have some partial transactions to complete includes (incuring bills, intances where you initiate the transaction using the frontend SDKs, etc...).
+    Example of when you might have some partial transactions to complete includes (incuring bills, intances where you initiate the transaction using the frontend SDKs, etc...). With this in mind, we wrote the method to be as independent and self-containing as possible.
+
+**NB: The TransactionResource#authorize method can only be called on the dev environment(your computer) or any environment where there is access to a web browser.**
 
 Testing
 -------------
