@@ -1,7 +1,7 @@
 paystack
 ===============================
 
-[![Build Status](https://travis-ci.org/ojengwa/paystack.svg?branch=master)](https://travis-ci.org/ojengwa/paystack) [![Coverage Status](https://coveralls.io/repos/github/ojengwa/paystack/badge.svg?branch=master)](https://coveralls.io/github/ojengwa/paystack?branch=master) [![PyPi Version](https://badge.fury.io/py/paystack.svg)](https://badge.fury.io/py/paystack) [![PyPi Downloads](https://img.shields.io/pypi/dm/paystack)](https://pypi.python.org/pypi/paystack)
+[![Build Status](https://travis-ci.org/ojengwa/paystack.svg?branch=master)](https://travis-ci.org/ojengwa/paystack) [![Coverage Status](https://coveralls.io/repos/github/ojengwa/paystack/badge.svg?branch=master)](https://coveralls.io/github/ojengwa/paystack?branch=master) [![PyPi Version](https://badge.fury.io/py/paystack.svg)](https://badge.fury.io/py/paystack) [![PyPI](https://img.shields.io/pypi/dm/paystack.svg)](https://pypi.python.org/pypi/paystack)
 
 
 Overview
