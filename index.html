@@ -115,6 +115,9 @@
         <li class="main "><a href="#api-anatomy">API Anatomy</a></li>
         
     
+        <li class="main "><a href="#workflows">Workflows</a></li>
+        
+    
         <li class="main "><a href="#testing">Testing</a></li>
         
     
@@ -130,7 +133,7 @@
 
 <h2 id="overview">Overview</h2>
 <p>Paystack API bindings in Python.</p>
-<p><a href="https://travis-ci.org/ojengwa/paystack"><img alt="Build Status" src="https://travis-ci.org/ojengwa/paystack.svg?branch=master" /></a> <a href="https://coveralls.io/github/ojengwa/paystack?branch=master"><img alt="Coverage Status" src="https://coveralls.io/repos/github/ojengwa/paystack/badge.svg?branch=master" /></a> <a href="https://badge.fury.io/py/paystack"><img alt="PyPI version" src="https://badge.fury.io/py/paystack.svg" /></a></p>
+<p><a href="https://travis-ci.org/ojengwa/paystack"><img alt="Build Status" src="https://travis-ci.org/ojengwa/paystack.svg?branch=master" /></a> <a href="https://coveralls.io/github/ojengwa/paystack?branch=master"><img alt="Coverage Status" src="https://coveralls.io/repos/github/ojengwa/paystack/badge.svg?branch=master" /></a> <a href="https://badge.fury.io/py/paystack"><img alt="PyPI version" src="https://badge.fury.io/py/paystack.svg" /></a> <a href="https://pypi.python.org/pypi/paystack"><img alt="PyPi Downloads" src="https://img.shields.io/pypi/dm/paystack" /></a></p>
 <h2 id="installation-usage">Installation / Usage</h2>
 <p>To install use pip:</p>
 <pre><code>$ pip install --upgrade paystack
@@ -253,9 +256,22 @@ def authorize(self, auth_url=None):
         None
     """
 </code></pre>
+<h2 id="workflows">Workflows</h2>
+<p>This library was designed with with pluggablility and ease of use in mind. Two of the most common workflows are well supported:</p>
+<ol>
+<li>
+<p>New Transaction Workflow:</p>
+<p>Most times, we might need to initiate a completely new transaction. The API provides us with simple methods that map to the various endpoints exposed by the <a href="https://developers.paystack.co/docs">Paystack</a> platform. Also, most of this methods comes with sane defaults so you don't have to repeat the obvious.</p>
+</li>
+<li>
+<p>Partial Transaction Workflow:</p>
+<p>Example of when you might have some partial transactions to complete includes (incuring bills, intances where you initiate the transaction using the frontend SDKs, etc...). With this in mind, we wrote the method to be as independent and self-containing as possible.</p>
+</li>
+</ol>
+<p><strong>NB: The TransactionResource#authorize method can only be called on the dev environment(your computer) or any environment where there is access to a web browser.</strong></p>
 <h2 id="testing">Testing</h2>
 <p>The package is compatible with Python 2.6+, Python 3.1+ and PyPy.  We need to test against all of these environments to ensure compatibility.  Travis CI will automatically run our tests on push.  For local testing, we use <a href="http://nose2.readthedocs.org/en/latest/">nose</a> to handle testing across environments.</p>
-<p>To run the included test using [fabric](http://fabfile.org:</p>
+<p>To run the included test using <a href="http://fabfile.org">fabric</a>:</p>
 <ol>
 <li>
 <p>Clone the repo:</p>
@@ -357,5 +373,5 @@ def main():
 
 <!--
 MkDocs version : 0.15.3
-Build Date UTC : 2016-02-25 17:20:09.411743
+Build Date UTC : 2016-03-31 22:19:54.364128
 -->
